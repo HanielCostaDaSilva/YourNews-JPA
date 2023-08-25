@@ -44,6 +44,11 @@ public class Assunto {
 
     @Override
     public String toString(){
-        return "id: "+ id +" nome: "+ nome ;
+    	String titulosNoticias="";
+    	for(Noticia n : this.listaNoticia) {	
+    		titulosNoticias += n.getTitulo() +" | " ;
+    	}
+    	
+        return "id: "+ id +" nome: "+ nome + "\n titulos: " + titulosNoticias;
     }
 }

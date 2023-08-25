@@ -30,8 +30,6 @@ public class Util {
         return manager;
     }
 
-    }
-
     public static void desconectar() {
         if (manager != null) {
             manager.close();

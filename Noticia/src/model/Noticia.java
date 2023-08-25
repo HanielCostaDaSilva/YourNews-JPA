@@ -16,12 +16,6 @@ public class Noticia {
 		this.link = link;
 	}
 
-	@Override
-	public String toString() {
-		return "Noticia [id=" + id + ", titulo=" + titulo + ", datapublicacao=" + datapublicacao + ", link=" + link
-				+ ", listaAssuntos=" + listaAssuntos + "]";
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -76,5 +70,15 @@ public class Noticia {
 	}
 
 	public void adicionar(Assunto a1) {
+	}
+	
+	@Override
+	public String toString() {
+		String assuntosNomes="";
+    	for(Assunto n : this.listaAssuntos) {	
+    		assuntosNomes += n.getNome() +" | ";
+    	}
+		return "id: " + id + ", titulo: " + titulo + ", Publicada: " + datapublicacao + ", link: " + link
+				+ "\n Assuntos: " + assuntosNomes+ "";
 	}
 }

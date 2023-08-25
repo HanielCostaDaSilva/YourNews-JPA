@@ -69,6 +69,10 @@ class Cadastrar {
 
       RegisterHelper.sendToDatabase(noticias);
       RegisterHelper.sendToDatabase(assuntos);
+      
+      
+      System.out.println("Assuntos: \n"+ assuntos.toString());
+      System.out.println("Noticias: \n"+ noticias.toString());
 
     } catch (Exception e) {
       System.out.println(e);
@@ -82,5 +86,8 @@ class Cadastrar {
     n.adicionar(a);
     a.adicionar(n);
 
+  }
+  public static void main(String[] args){
+	  Cadastrar c = new Cadastrar();
   }
 }
