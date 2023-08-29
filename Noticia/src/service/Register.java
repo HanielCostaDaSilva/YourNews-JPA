@@ -1,7 +1,5 @@
 package service;
 
-import java.util.ArrayList;
-
 import com.db4o.ObjectContainer;
 
 import model.Assunto;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Noticia</name>
+	<name>projeto-1-PDO</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -16,7 +16,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1693333013927</id>
+			<id>1693330945684</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
