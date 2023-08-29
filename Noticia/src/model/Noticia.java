@@ -1,13 +1,14 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Noticia {
 	private int id;
 	private String titulo;
 	private String datapublicacao;
 	private String link;
-	private ArrayList<Assunto> listaAssuntos;
+	private List<Assunto> listaAssuntos = new ArrayList<>();
 
 	public Noticia(int id, String titulo, String datapublicacao, String link) {
 		this.id = id;
@@ -48,7 +49,7 @@ public class Noticia {
 		this.link = link;
 	}
 
-	public void inserir(Assunto assunto) {
+	public void adicionar(Assunto assunto) {
 		this.listaAssuntos.add(assunto);
 	}
 
@@ -56,8 +57,8 @@ public class Noticia {
 		this.listaAssuntos.remove(assunto);
 	}
 
-	public ArrayList<Assunto> listar() {
-		return listaAssuntos;
+	public List<Assunto> listar() {
+		return this.listaAssuntos;
 	}
 
 	public String localizar(String assuntoKey) {
@@ -67,9 +68,6 @@ public class Noticia {
 			}
 		}
 		return "Assunto não encontrado";
-	}
-
-	public void adicionar(Assunto a1) {
 	}
 	
 	@Override
