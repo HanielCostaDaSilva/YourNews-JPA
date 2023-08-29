@@ -99,18 +99,13 @@ class Cadastrar {
       manager.store(n7);
       manager.commit();
 
-      Assunto[] assuntos = { a1, a2, a3, a4, a5, a6 };
-      Noticia[] noticias = { n1, n2, n3, n4, n5, n6, n7 };
-      
-      System.out.println("Assuntos: \n"+ assuntos.toString());
-      System.out.println("Noticias: \n"+ noticias.toString());
-
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
     
     Util.desconectar();
     System.out.println("\nFim do programa");
+    
   }
 
   public void addCross(Noticia n, Assunto a) {
