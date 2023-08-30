@@ -74,9 +74,9 @@ public class Noticia {
 	public String toString() {
 		String assuntosNomes="";
     	for(Assunto n : this.listaAssuntos) {	
-    		assuntosNomes += n.getNome() +" | ";
+    		assuntosNomes += n.getNome() +"\n";
     	}
 		return "id: " + id + ", titulo: " + titulo + ", Publicada: " + datapublicacao + ", link: " + link
-				+ "\n Assuntos: " + assuntosNomes+ "";
+				+ "\n Assuntos: \n" + assuntosNomes+ "";
 	}
 }
