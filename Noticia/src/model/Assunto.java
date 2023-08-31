@@ -30,6 +30,12 @@ public class Assunto {
     public void setNome(String newNome){
         this.nome = newNome;
     }
+
+    
+    public List<Noticia> getListaNoticia(){
+        return this.listaNoticia;
+    }
+
     public void adicionar(Noticia noticia ){
         this.listaNoticia.add(noticia);
     }

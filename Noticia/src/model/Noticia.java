@@ -61,6 +61,10 @@ public class Noticia {
 		return this.listaAssuntos;
 	}
 
+	public List<Assunto> getListaAssuntos() {
+		return this.listaAssuntos;
+	}
+
 	public String localizar(String assuntoKey) {
 		for (Assunto assunto : listaAssuntos) {
 			if (assuntoKey.equals(assunto.getNome())) {

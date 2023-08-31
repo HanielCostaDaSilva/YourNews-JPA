@@ -75,6 +75,7 @@ public class Util {
             return 1;
     }
 
+    /*Register Function */
     public static void addCross(Noticia n, Assunto a) {
         n.adicionar(a);
         a.adicionar(n);
@@ -108,6 +109,21 @@ public class Util {
     public static void sendToDatabase(Noticia n, Assunto a) {
         manager.store(n);
         manager.store(a);
+        manager.commit();
+    }
+    /*Delete functions */
+    
+    public static void removeCross(Noticia n, Assunto a){
+        n.remover(a);
+        a.remover(n);
+    }
+
+    public static void deleteFromDatabase(Noticia n){
+        manager.delete(n);
+        manager.commit();
+    }
+    public static void deleteFromDatabase(Assunto a ){
+        manager.delete(a);
         manager.commit();
     }
 
