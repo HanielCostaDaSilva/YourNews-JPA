@@ -17,7 +17,7 @@ public class Util {
     public static ObjectContainer conectarBanco() {
         if (manager != null)
             return manager;
-        
+
         EmbeddedConfiguration config = Db4oEmbedded.newConfiguration();
         config.common().messageLevel(0);
 
@@ -40,39 +40,91 @@ public class Util {
             manager = null;
         }
     }
-    
+
     public static int gerarIdAssunto() {
-    	if(manager.query(Assunto.class).size()==0) {
-    		return 1;
-    	}
-    	
-    	Query q = manager.query();
-    	q.constrain(Assunto.class);
-    	q.descend("id").orderDescending();
-    	List<Assunto> resultados = q.execute();
-    	
-    	if(resultados.size()>0) {
-    		Assunto assunto = resultados.get(0);
-    		return assunto.getId() + 1;
-    	}
-    	else return 1;
+        if (manager.query(Assunto.class).size() == 0) {
+            return 1;
+        }
+
+        Query q = manager.query();
+        q.constrain(Assunto.class);
+        q.descend("id").orderDescending();
+        List<Assunto> resultados = q.execute();
+
+        if (resultados.size() > 0) {
+            Assunto assunto = resultados.get(0);
+            return assunto.getId() + 1;
+        } else
+            return 1;
     }
-    
+
     public static int gerarIdNoticia() {
-    	if(manager.query(Noticia.class).size()==0) {
-    		return 1;
-    	}
-    	
-    	Query q = manager.query();
-    	q.constrain(Noticia.class);
-    	q.descend("id").orderDescending();
-    	List<Noticia> resultados = q.execute();
-    	
-    	if(resultados.size()>0) {
-    		Noticia noticia = resultados.get(0);
-    		return noticia.getId() + 1;
-    	}
-    	else return 1;
+        if (manager.query(Noticia.class).size() == 0) {
+            return 1;
+        }
+
+        Query q = manager.query();
+        q.constrain(Noticia.class);
+        q.descend("id").orderDescending();
+        List<Noticia> resultados = q.execute();
+
+        if (resultados.size() > 0) {
+            Noticia noticia = resultados.get(0);
+            return noticia.getId() + 1;
+        } else
+            return 1;
+    }
+
+    /*Register Function */
+    public static void addCross(Noticia n, Assunto a) {
+        n.adicionar(a);
+        a.adicionar(n);
+
+    }
+
+    public static void sendToDatabase(Noticia n) {
+        manager.store(n);
+        manager.commit();
+    }
+
+    public static void sendToDatabase(Noticia[] ns) {
+        for (Noticia n : ns) {
+            manager.store(n);
+        }
+        manager.commit();
+    }
+
+    public static void sendToDatabase(Assunto a) {
+        manager.store(a);
+        manager.commit();
+    }
+
+    public static void sendToDatabase(Assunto[] as) {
+        for (Assunto a : as) {
+            manager.store(a);
+        }
+        manager.commit();
+    }
+
+    public static void sendToDatabase(Noticia n, Assunto a) {
+        manager.store(n);
+        manager.store(a);
+        manager.commit();
+    }
+    /*Delete functions */
+    
+    public static void removeCross(Noticia n, Assunto a){
+        n.remover(a);
+        a.remover(n);
+    }
+
+    public static void deleteFromDatabase(Noticia n){
+        manager.delete(n);
+        manager.commit();
+    }
+    public static void deleteFromDatabase(Assunto a ){
+        manager.delete(a);
+        manager.commit();
     }
 
 }

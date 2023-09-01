@@ -7,34 +7,34 @@ import model.Noticia;
 import util.Util;
 
 class Cadastrar {
-	protected ObjectContainer manager;
-	
+  protected ObjectContainer manager;
+
   public Cadastrar() {
 
     try {
       manager = Util.conectarBanco();
       System.out.println("Cadastrando...");
-      
+
       Assunto a1 = new Assunto(Util.gerarIdAssunto(), "Esportes");
       manager.store(a1);
       manager.commit();
-      
+
       Assunto a2 = new Assunto(Util.gerarIdAssunto(), "Celebridades");
       manager.store(a2);
       manager.commit();
-      
+
       Assunto a3 = new Assunto(Util.gerarIdAssunto(), "Política");
       manager.store(a3);
       manager.commit();
-      
+
       Assunto a4 = new Assunto(Util.gerarIdAssunto(), "Variedades");
       manager.store(a4);
       manager.commit();
-      
+
       Assunto a5 = new Assunto(Util.gerarIdAssunto(), "Tecnologia");
       manager.store(a5);
       manager.commit();
-      
+
       Assunto a6 = new Assunto(Util.gerarIdAssunto(), "Trabalho");
       manager.store(a6);
       manager.commit();
@@ -43,7 +43,9 @@ class Cadastrar {
           "Final emocionante: Botafogo derrota Flamengo nas quartas de finais", "2023-08-24",
           "https://exemplo.com/noticia1");
 
-      addCross(n1, a1);
+      n1.adicionar(a1);
+      a1.adicionar(n1);
+
       manager.store(n1);
       manager.commit();
 
@@ -51,7 +53,9 @@ class Cadastrar {
           "BOMBA! Jojô Toddynho reata namoro com o ex. Veja o seu desabafo!", "2023-08-23",
           "https://exemplo.com/noticia2");
 
-      addCross(n2, a2);
+      n2.adicionar(a2);
+      a2.adicionar(n2);
+
       manager.store(n2);
       manager.commit();
 
@@ -59,17 +63,25 @@ class Cadastrar {
           "Veja quais profissões deixaram de existir graças às IAs.", "2023-08-22",
           "https://exemplo.com/noticia3");
 
-      addCross(n3, a5);
-      addCross(n3, a6);
+      n3.adicionar(a5);
+      a5.adicionar(n3);
+
+      n3.adicionar(a6);
+      a6.adicionar(n3);
+
       manager.store(n3);
       manager.commit();
 
       Noticia n4 = new Noticia(Util.gerarIdNoticia(),
-          "Gorveno ameaça baixar o piso da enfermagem.", "2023-07-26",
+          "Gorveno ameaça baixar o piso da enfermagem.", "2023-07-20",
           "https://exemplo.com/noticia4");
 
-      addCross(n4, a3);
-      addCross(n4, a6);
+      n4.adicionar(a3);
+      a3.adicionar(n4);
+
+      n4.adicionar(a6);
+      a6.adicionar(n4);
+
       manager.store(n4);
       manager.commit();
 
@@ -77,17 +89,25 @@ class Cadastrar {
           "Anunciado! GTA 6 não é mais um sonho! Veja a data de lançamento.", "2023-08-20",
           "https://exemplo.com/noticia5");
 
-      addCross(n5, a4);
+      n5.adicionar(a4);
+      a4.adicionar(n5);
+
       manager.store(n5);
       manager.commit();
 
       Noticia n6 = new Noticia(Util.gerarIdNoticia(),
-          "Edu Camargo ensina a fazer uma página Web Top.", "2023-08-19",
+          "Edu Camargo ensina a fazer uma página Web Top.", "2023-08-20",
           "https://exemplo.com/noticia6");
 
-      addCross(n6, a2);
-      addCross(n6, a4);
-      addCross(n6, a5);
+      n6.adicionar(a2);
+      a2.adicionar(n6);
+
+      n6.adicionar(a4);
+      a4.adicionar(n6);
+
+      n6.adicionar(a5);
+      a5.adicionar(n6);
+
       manager.store(n6);
       manager.commit();
 
@@ -95,25 +115,20 @@ class Cadastrar {
           "Cachorro chora no velório da dona, confira o vídeo sem se emocionar.", "2023-08-18",
           "https://exemplo.com/noticia7");
 
-      addCross(n7, a5);
+      n7.adicionar(a4);
+      a4.adicionar(n7);
+
       manager.store(n7);
       manager.commit();
 
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
-    
     Util.desconectar();
     System.out.println("\nFim do programa");
-    
-  }
-
-  public void addCross(Noticia n, Assunto a) {
-    n.adicionar(a);
-    a.adicionar(n);
 
   }
-  public static void main(String[] args){
-	  new Cadastrar();
+  public static void main(String[] args) {
+    new Cadastrar();
   }
 }

@@ -30,6 +30,12 @@ public class Assunto {
     public void setNome(String newNome){
         this.nome = newNome;
     }
+
+    
+    public List<Noticia> getListaNoticia(){
+        return this.listaNoticia;
+    }
+
     public void adicionar(Noticia noticia ){
         this.listaNoticia.add(noticia);
     }
@@ -46,9 +52,9 @@ public class Assunto {
     public String toString(){
     	String titulosNoticias="";
     	for(Noticia n : this.listaNoticia) {	
-    		titulosNoticias += n.getTitulo() +" | " ;
+    		titulosNoticias += n.getTitulo() +"\n" ;
     	}
     	
-        return "id: "+ id +" nome: "+ nome + "\n titulos: " + titulosNoticias;
+        return "id: "+ id +" nome: "+ nome + "\n titulos: \n" + titulosNoticias;
     }
 }
