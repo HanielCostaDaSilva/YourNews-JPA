@@ -44,18 +44,17 @@ public class Consultar {
 				System.out.println(n);
 		}
 
-		/* quais os assuntos que tem mais de 1 noticias */
-
 		System.out.println("==================");
 		System.out.println("Exibindo os assuntos que tem mais de 1 noticias");
 		System.out.println("==================");
 
+		/* quais os assuntos que tem mais de 1 noticias */
 		Query q3 = manager.query();
 		q3.constrain(Assunto.class);
-		q3.descend("nome").constrain(new Filtro1());
+		q3.constrain(new Filtro());
 		List<Assunto> q3Resultado = q3.execute();
 
-		System.out.println(q3Resultado);
+		
 		for(Assunto a : q3Resultado) {
 			System.out.println(a);
 		}
@@ -65,10 +64,7 @@ public class Consultar {
 		Util.desconectar();
 	}
 
-	class Filtro1 implements Evaluation {
-		/**
-		 *
-		 */
+	class Filtro implements Evaluation {
 		private static final long serialVersionUID = 1L;
 
 		public void evaluate(Candidate candidate) {
@@ -82,6 +78,5 @@ public class Consultar {
 	}
 	public static void main(String[] args) {
     	new Consultar();
-
     } 
 }

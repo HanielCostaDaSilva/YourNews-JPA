@@ -80,7 +80,7 @@ public class Noticia {
     	for(Assunto n : this.listaAssuntos) {	
     		assuntosNomes += n.getNome() +"\n";
     	}
-		return "id: " + id + ", titulo: " + titulo + ", Publicada: " + datapublicacao + ", link: " + link
+		return "id: " + id + ", titulo: " + titulo + ", Publicada: " + dataPublicacao + ", link: " + link
 				+ "\n Assuntos: \n" + assuntosNomes+ "";
 	}
 }

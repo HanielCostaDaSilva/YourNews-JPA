@@ -20,6 +20,8 @@ public class Deletar{
 
     public void apagar(){
         /* Apagar o assunto 'Variedades' do banco de dados. */
+    	System.out.println("Deletando...");
+    	
         Query q = manager.query();
         q.constrain(Assunto.class);
         q.descend("nome").constrain("Variedades");
@@ -40,7 +42,7 @@ public class Deletar{
             manager.delete(a);
             manager.commit();    
 
-            System.out.println("Deletado!");
+            System.out.println("Fim do programa.");
 
         }else
         System.out.println("inexistente");
@@ -48,6 +50,5 @@ public class Deletar{
 
     public static void main(String[] args) {
     	new Deletar();
-
     } 
 }
