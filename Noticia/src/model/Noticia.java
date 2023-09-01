@@ -6,14 +6,14 @@ import java.util.List;
 public class Noticia {
 	private int id;
 	private String titulo;
-	private String datapublicacao;
+	private String dataPublicacao;
 	private String link;
 	private List<Assunto> listaAssuntos = new ArrayList<>();
 
-	public Noticia(int id, String titulo, String datapublicacao, String link) {
+	public Noticia(int id, String titulo, String dataPublicacao, String link) {
 		this.id = id;
 		this.titulo = titulo;
-		this.datapublicacao = datapublicacao;
+		this.dataPublicacao = dataPublicacao;
 		this.link = link;
 	}
 
@@ -33,12 +33,12 @@ public class Noticia {
 		this.titulo = titulo;
 	}
 
-	public String getDatapublicacao() {
-		return datapublicacao;
+	public String getDataPublicacao() {
+		return dataPublicacao;
 	}
 
-	public void setDatapublicacao(String datapublicacao) {
-		this.datapublicacao = datapublicacao;
+	public void setDataPublicacao(String dataPublicacao) {
+		this.dataPublicacao = dataPublicacao;
 	}
 
 	public String getLink() {

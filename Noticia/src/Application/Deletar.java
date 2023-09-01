@@ -28,11 +28,18 @@ public class Deletar{
         if( resultado.size() > 0 ) {
             Assunto a = resultado.get(0);
             for(Noticia n : a.getListaNoticia()){
-                Util.removeCross(n,a);
+
+                n.remover(a);        
+                System.out.println("Removido a notícia com id: "+ n.getId());
+                
+                manager.store(n);            
+                
                 if (n.getListaAssuntos().isEmpty()) 
-                    manager.delete(n);	
+                    manager.delete(n);
             }
-            Util.deleteFromDatabase(a);
+            manager.delete(a);
+            manager.commit();    
+
             System.out.println("Deletado!");
 
         }else
