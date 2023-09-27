@@ -10,6 +10,12 @@ public class Noticia {
 	private String link;
 	private List<Assunto> listaAssuntos = new ArrayList<>();
 
+	public Noticia(String titulo, String dataPublicacao, String link) {
+		this.titulo = titulo;
+		this.dataPublicacao = dataPublicacao;
+		this.link = link;
+	}
+
 	public Noticia(int id, String titulo, String dataPublicacao, String link) {
 		this.id = id;
 		this.titulo = titulo;
@@ -73,14 +79,14 @@ public class Noticia {
 		}
 		return "Assunto não encontrado";
 	}
-	
+
 	@Override
 	public String toString() {
-		String assuntosNomes="";
-    	for(Assunto n : this.listaAssuntos) {	
-    		assuntosNomes += n.getNome() +"\n";
-    	}
+		String assuntosNomes = "";
+		for (Assunto n : this.listaAssuntos) {
+			assuntosNomes += n.getNome() + "\n";
+		}
 		return "id: " + id + ", titulo: " + titulo + ", Publicada: " + dataPublicacao + ", link: " + link
-				+ "\n Assuntos: \n" + assuntosNomes+ "";
+				+ "\n Assuntos: \n" + assuntosNomes + "";
 	}
 }

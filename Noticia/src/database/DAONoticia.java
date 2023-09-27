@@ -37,18 +37,13 @@ public class DAONoticia extends DAO<Noticia> {
 	// consultas de Noticia
 	// --------------------------------------------
 
-	public List<Noticia> Noticiasmodel(String model) {
-		Query q;
-		q = manager.query();
-		q.constrain(Noticia.class);
-		q.descend("carro").descend("model").constrain(model);
-		return q.execute();
-	}
-
-	public List<Noticia> NoticiasFinalizados() {
-		Query q = manager.query();
-		q.constrain(Noticia.class);
-		q.descend("finalizado").constrain(true);
-		return q.execute();
-	}
+	/*
+	 * public List<Noticia> Noticiasmodel(String model) { Query q; q =
+	 * manager.query(); q.constrain(Noticia.class);
+	 * q.descend("carro").descend("model").constrain(model); return q.execute(); }
+	 * 
+	 * public List<Noticia> NoticiasFinalizados() { Query q = manager.query();
+	 * q.constrain(Noticia.class); q.descend("finalizado").constrain(true); return
+	 * q.execute(); }
+	 */
 }

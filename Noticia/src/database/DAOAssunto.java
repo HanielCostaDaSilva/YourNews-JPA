@@ -45,10 +45,9 @@ public class DAOAssunto extends DAO<Assunto> {
 		return q.execute();
 	}
 
-	public List<Assunto> AssuntosFinalizados() {
-		Query q = manager.query();
-		q.constrain(Assunto.class);
-		q.descend("finalizado").constrain(true);
-		return q.execute();
-	}
+	/*
+	 * public List<Assunto> AssuntosFinalizados() { Query q = manager.query();
+	 * q.constrain(Assunto.class); q.descend("finalizado").constrain(true); return
+	 * q.execute(); }
+	 */
 }
