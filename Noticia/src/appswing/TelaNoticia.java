@@ -201,9 +201,9 @@ public class TelaNoticia {
 				try {
 					if (table.getSelectedRow() >= 0) {
 						label.setText("nao implementado ");
-						String placa = (String) table.getValueAt(table.getSelectedRow(), 0);
+						int id = (int) table.getValueAt(table.getSelectedRow(), 0);
 
-						Fachada.excluirNoticia(titulo);
+						Fachada.removerNoticia(id);
 						label.setText("Notícia apagada");
 						listagem();
 					} else

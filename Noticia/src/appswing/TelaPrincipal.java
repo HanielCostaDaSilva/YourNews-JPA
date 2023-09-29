@@ -24,7 +24,7 @@ public class TelaPrincipal {
 	private JFrame frame;
 	private JMenu mnNoticia;
 	private JMenu mnAssunto;
-	private JMenu mnAluguel;
+	/* private JMenu mnAluguel; */
 	private JMenu mnConsulta;
 	private JLabel label;
 
@@ -49,7 +49,7 @@ public class TelaPrincipal {
 	 */
 	public TelaPrincipal() {
 		initialize();
-		frame.setTitle("Locadora - usuario: " + Fachada.logado.getNome());
+		frame.setTitle("Locadora - usuario: " + Fachada.logado.getNickname());
 		frame.setVisible(true);
 	}
 

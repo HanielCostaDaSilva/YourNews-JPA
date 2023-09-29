@@ -126,35 +126,23 @@ public class TelaConsulta {
 		label_4.setBounds(21, 190, 431, 14);
 		frame.getContentPane().add(label_4);
 
-		button = new JButton("Consultar");
-		button.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int index = comboBox.getSelectedIndex();
-				if(index<0)
-					label_4.setText("consulta nao selecionada");
-				else
-					switch(index) {
-					case 0: 
-						List<Aluguel> resultado1 = Fachada.alugueisFinalizados();
-						listagemAluguel(resultado1);
-						break;
-					case 1: 
-						String modelo = JOptionPane.showInputDialog("digite o modelo");
-						List<Aluguel> resultado2 = Fachada.alugueisModelo(modelo);
-						listagemAluguel(resultado2);
-						break;
-					case 2: 
-						String n = JOptionPane.showInputDialog("digite N");
-						int numero = Integer.parseInt(n);
-						List<Carro> resultado3 = Fachada.carrosNAlugueis(numero);
-						listagemCarro(resultado3);
-						break;
-
-					}
-
-			}
-		});
+		/*
+		 * button = new JButton("Consultar"); button.setFont(new Font("Tahoma",
+		 * Font.PLAIN, 12)); button.addActionListener(new ActionListener() { public void
+		 * actionPerformed(ActionEvent e) { int index = comboBox.getSelectedIndex();
+		 * if(index<0) label_4.setText("consulta nao selecionada"); else switch(index) {
+		 * case 0: List<Aluguel> resultado1 = Fachada.alugueisFinalizados();
+		 * listagemAluguel(resultado1); break; case 1: String modelo =
+		 * JOptionPane.showInputDialog("digite o modelo"); List<Aluguel> resultado2 =
+		 * Fachada.alugueisModelo(modelo); listagemAluguel(resultado2); break; case 2:
+		 * String n = JOptionPane.showInputDialog("digite N"); int numero =
+		 * Integer.parseInt(n); List<Carro> resultado3 =
+		 * Fachada.carrosNAlugueis(numero); listagemCarro(resultado3); break;
+		 * 
+		 * }
+		 * 
+		 * } });
+		 */
 		button.setBounds(606, 10, 89, 23);
 		frame.getContentPane().add(button);
 
