@@ -195,8 +195,8 @@ public class TelaAssunto {
 				try {
 					if (table.getSelectedRow() >= 0) {
 						label.setText("nao implementado ");
-						String cpf = (String) table.getValueAt(table.getSelectedRow(), 0);
-						Fachada.excluirAssunto(id);
+						int id = (int) table.getValueAt(table.getSelectedRow(), 0);
+						Fachada.removerAssunto(id);
 						label.setText("cliente apagado");
 						listagem();
 					} else

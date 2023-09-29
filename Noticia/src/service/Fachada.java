@@ -16,7 +16,7 @@ public class Fachada {
     private static DAOUsuario daoUsuario = new DAOUsuario();
     public static Usuario logado;
 
-    public static Noticia adicionarNoticia(String titulo String dataPublicacao, String link)  throws Exception{
+    public static Noticia adicionarNoticia(String titulo, String dataPublicacao, String link)  throws Exception{
         DAO.begin();
         Noticia resultado= daoNoticia.read(titulo);
         if (resultado!=null) throw new Exception("Noticia:" + titulo +"já cadastrado!") ;
@@ -130,7 +130,7 @@ public class Fachada {
 
     public static Usuario atualizarUsuario(int id, String nickname, String password) {
         Usuario usuario = daoUsuario.read(id);
-        usuario.setNickname(nickname);
+        usuario.setNickName(nickname);
         usuario.setPassword(password);
         daoUsuario.create(usuario);
         return usuario;

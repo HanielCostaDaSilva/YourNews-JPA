@@ -49,7 +49,7 @@ public class TelaPrincipal {
 	 */
 	public TelaPrincipal() {
 		initialize();
-		frame.setTitle("Locadora - usuario: " + Fachada.logado.getNickname());
+		frame.setTitle("Notícias - usuario: " + Fachada.logado.getNickname());
 		frame.setVisible(true);
 	}
 
@@ -58,7 +58,7 @@ public class TelaPrincipal {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setTitle("Locadora");
+		frame.setTitle("Notícias");
 		frame.setBounds(100, 100, 450, 363);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -78,7 +78,7 @@ public class TelaPrincipal {
 
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
-		mnNoticia = new JMenu("Carro");
+		mnNoticia = new JMenu("Notícia");
 		mnNoticia.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -87,7 +87,7 @@ public class TelaPrincipal {
 		});
 		menuBar.add(mnNoticia);
 
-		mnAssunto = new JMenu("Cliente");
+		mnAssunto = new JMenu("Assunto");
 		mnAssunto.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
