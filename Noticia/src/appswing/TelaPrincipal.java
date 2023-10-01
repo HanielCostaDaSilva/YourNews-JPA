@@ -78,7 +78,7 @@ public class TelaPrincipal {
 
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
-		mnNoticia = new JMenu("Notícia");
+		mnNoticia = new JMenu("Noticia");
 		mnNoticia.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
