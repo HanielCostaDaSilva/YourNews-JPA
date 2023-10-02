@@ -32,8 +32,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.db4o.ObjectContainer;
 
-import model.Noticia;
 import model.Assunto;
+import model.Noticia;
 import service.Fachada;
 
 public class TelaConsulta {
@@ -126,23 +126,29 @@ public class TelaConsulta {
 		label_4.setBounds(21, 190, 431, 14);
 		frame.getContentPane().add(label_4);
 
-		/*
-		 * button = new JButton("Consultar"); button.setFont(new Font("Tahoma",
-		 * Font.PLAIN, 12)); button.addActionListener(new ActionListener() { public void
-		 * actionPerformed(ActionEvent e) { int index = comboBox.getSelectedIndex();
-		 * if(index<0) label_4.setText("consulta nao selecionada"); else switch(index) {
-		 * case 0: List<Aluguel> resultado1 = Fachada.alugueisFinalizados();
-		 * listagemAluguel(resultado1); break; case 1: String modelo =
-		 * JOptionPane.showInputDialog("digite o modelo"); List<Aluguel> resultado2 =
-		 * Fachada.alugueisModelo(modelo); listagemAluguel(resultado2); break; case 2:
-		 * String n = JOptionPane.showInputDialog("digite N"); int numero =
-		 * Integer.parseInt(n); List<Carro> resultado3 =
-		 * Fachada.carrosNAlugueis(numero); listagemCarro(resultado3); break;
-		 * 
-		 * }
-		 * 
-		 * } });
-		 */
+		button = new JButton("Consultar");
+		button.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int index = comboBox.getSelectedIndex();
+				if(index<0)
+					label_4.setText("consulta nao selecionada");
+				else
+					switch(index) {
+					case 0: 
+						List<Noticia> resultado1 = Fachada.localizarNoticiasData("2023-09-15");
+						listagemNoticias(resultado1);
+						break;
+					case 1: 
+						String modelo = JOptionPane.showInputDialog("digite o modelo");
+						List<Assunto> resultado2 = Fachada.localizarAssuntosPorQuantidadeNoticia(2);
+						listagemAssunto(resultado2);
+						break;
+
+					}
+
+			}
+		});
 		button.setBounds(606, 10, 89, 23);
 		frame.getContentPane().add(button);
 
@@ -152,8 +158,36 @@ public class TelaConsulta {
 		comboBox.setBounds(21, 10, 513, 22);
 		frame.getContentPane().add(comboBox);
 	}
+
+	public void listagemNoticias(List<Noticia> lista) {
+		try{
+			// o model armazena todas as linhas e colunas do table
+			DefaultTableModel model = new DefaultTableModel();
+
+			//adicionar colunas no model
+			model.addColumn("id");
+			model.addColumn("nome");
+			model.addColumn("placa");
+			model.addColumn("data inicial");
+			model.addColumn("data final");
+			model.addColumn("total a pagar");
+			model.addColumn("finalizado");
+
+			//adicionar linhas no model
+			for(Noticia not : lista) {
+				model.addRow(new Object[]{not.getId(), not.getTitulo(), not.getDataPublicacao(), not.getLink(), not.getListaAssuntos()});
+			}
+			//atualizar model no table (visualizacao)
+			table.setModel(model);
+
+			label_4.setText("resultados: "+lista.size()+ " objetos");
+		}
+		catch(Exception erro){
+			label.setText(erro.getMessage());
+		}
+	}
 	
-	public void listagemNoticia(List<Noticia> lista) {
+	public void listagemAssunto(List<Assunto> lista) {
 		try{
 			// model armazena todas as linhas e colunas do table
 			DefaultTableModel model = new DefaultTableModel();
@@ -164,8 +198,8 @@ public class TelaConsulta {
 			model.addColumn("alugado");
 
 			//adicionar linhas no model
-			for(Noticia not : lista) {
-				model.addRow(new Object[]{not.getId(), not.getTitulo()} );
+			for(Assunto ass : lista) {
+				model.addRow(new Object[]{ass.getId(), ass.getNome(), ass.getListaNoticia()} );
 			}
 			//atualizar model no table (visualizacao)
 			table.setModel(model);
