@@ -66,13 +66,13 @@ public class Noticia {
 		return this.listaAssuntos;
 	}
 
-	public String localizar(String assuntoKey) {
+	public Assunto localizar(String assuntoKey) {
 		for (Assunto assunto : listaAssuntos) {
 			if (assuntoKey.equals(assunto.getNome())) {
-				return assunto.getNome();
+				return assunto;
 			}
 		}
-		return "Assunto não encontrado";
+		return null;
 	}
 
 	@Override

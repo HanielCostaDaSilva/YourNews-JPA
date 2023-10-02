@@ -15,6 +15,7 @@ public class Fachada {
     private static DAOAssunto daoAssunto = new DAOAssunto();
     private static DAOUsuario daoUsuario = new DAOUsuario();
     public static Usuario logado;
+    public static int limiteAssunto = 3;
 
     /**
      * Método utilizado para adicionar uma notícia no banco de dados.
@@ -200,6 +201,12 @@ public class Fachada {
             throw new Exception("Notícia ou Assunto não encontrados!");
         }
 
+        else if (noticia.localizar(assunto.getNome()) != null){
+            throw new Exception("Assunto:" +assunto.getNome() + " já inserido");
+        }
+        else if(checarQuantidadeAssunto(noticia)){
+            throw new Exception("Noticia: " +noticia.getTitulo().substring(0, 10) + " já atingiu o limite de "+ limiteAssunto+ " assuntos");
+        }
         // Associe o assunto à notícia
         noticia.adicionar(assunto);
         assunto.adicionar(noticia);
@@ -254,16 +261,23 @@ public class Fachada {
      * Realiza uma pesquisa para localizar assuntos que possuam uma quantidade
      * específica de notícias associadas.
      *
-     * @param quantidade A quantidade desejada de notícias que os assuntos devem
-     *                   ter.
-     * @return Uma lista de assuntos que atendem ao critério de quantidade de
-     *         notícias.
-     *         Se ocorrer algum erro durante a pesquisa.
+     * @param quantidade A quantidade desejada de notícias que os assuntos devem ter.
+     * @return Uma lista de assuntos que atendem ao critério de quantidade denotícias. Se ocorrer algum erro durante a pesquisa.
      */
     public static List<Assunto> localizarAssuntosPorQuantidadeNoticia(int quantidade) {
 
         List<Assunto> noticiasPorAssunto = daoAssunto.getAssuntosPorQuantidadeNoticia(quantidade);
         return noticiasPorAssunto;
+    }
+
+    /**
+     * Regra de negócio 1: As notícias não podem ter mais que o limiteAssuntos
+     * permitidos
+     * 
+     * @return noticia > limiteAssunto
+     */
+    public static boolean checarQuantidadeAssunto(Noticia noticia) {
+        return noticia.getListaAssuntos().size() >= limiteAssunto;
     }
 
 }
