@@ -16,6 +16,15 @@ public class Fachada {
     private static DAOUsuario daoUsuario = new DAOUsuario();
     public static Usuario logado;
 
+    /**
+     * Método utilizado para adicionar uma notícia no banco de dados.
+     * 
+     * @param titulo
+     * @param dataPublicacao
+     * @param link
+     * @return Noticia
+     * @throws Exception
+     */
     public static Noticia adicionarNoticia(String titulo, String dataPublicacao, String link) throws Exception {
         DAO.begin();
         Noticia resultado = daoNoticia.read(titulo);

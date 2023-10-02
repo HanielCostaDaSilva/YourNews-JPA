@@ -1,5 +1,7 @@
 package appswing;
 
+import java.awt.EventQueue;
+
 /**********************************
  * IFPB - Curso Superior de Tec. em Sist. para Internet
  * POO
@@ -24,25 +26,24 @@ public class TelaPrincipal {
 	private JFrame frame;
 	private JMenu mnNoticia;
 	private JMenu mnAssunto;
-	/* private JMenu mnAluguel; */
 	private JMenu mnConsulta;
 	private JLabel label;
 
 	/**
 	 * Launch the application.
 	 */
-	// public static void main(String[] args) {
-	// EventQueue.invokeLater(new Runnable() {
-	// public void run() {
-	// try {
-	// TelaPrincipal window = new TelaPrincipal();
-	// window.frame.setVisible(true);
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// });
-	// }
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TelaPrincipal window = new TelaPrincipal();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the application.
@@ -69,7 +70,7 @@ public class TelaPrincipal {
 		label.setText("Inicializando...");
 		label.setBounds(0, 0, 467, 302);
 		// label.setBounds(0, 0, frame.getWidth(), frame.getHeight());
-		ImageIcon imagem = new ImageIcon(getClass().getResource("/arquivos/imagem.png"));
+		ImageIcon imagem = new ImageIcon(getClass().getResource("/imgs/background.png"));
 		imagem = new ImageIcon(
 				imagem.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_DEFAULT));// label.setIcon(fotos);
 		label.setIcon(imagem);
