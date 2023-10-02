@@ -21,8 +21,8 @@ import service.Fachada;
 
 public class TelaPrincipal {
 	private JFrame frame;
-	private JMenu mnCarro;
-	private JMenu mnCliente;
+	private JMenu mnNoticia;
+	private JMenu mnAssunto;
 	private JMenu mnAluguel;
 	private JMenu mnConsulta;
 	private JLabel label;
@@ -50,7 +50,7 @@ public class TelaPrincipal {
 	 */
 	public TelaPrincipal() {
 		initialize();
-		frame.setTitle("Locadora - usuario: "+ Fachada.logado.getNickname());
+		frame.setTitle("Noticias - usuario: "+ Fachada.logado.getNickname());
 		frame.setVisible(true);
 	}
 
@@ -59,7 +59,7 @@ public class TelaPrincipal {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setTitle("Locadora");
+		frame.setTitle("Noticias");
 		frame.setBounds(100, 100, 450, 363);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -78,23 +78,23 @@ public class TelaPrincipal {
 
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
-		mnCarro = new JMenu("Carro");
-		mnCarro.addMouseListener(new MouseAdapter() {
+		mnNoticia = new JMenu("Noticias");
+		mnNoticia.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				TelaNoticia tela = new TelaNoticia();
 			}
 		});
-		menuBar.add(mnCarro);
+		menuBar.add(mnNoticia);
 
-		mnCliente = new JMenu("Cliente");
-		mnCliente.addMouseListener(new MouseAdapter() {
+		mnAssunto = new JMenu("Assuntos");
+		mnAssunto.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				TelaAssunto tela = new TelaAssunto();
 			}
 		});
-		menuBar.add(mnCliente);
+		menuBar.add(mnAssunto);
 		
 		mnAluguel = new JMenu("Aluguel");
 		mnAluguel.addMouseListener(new MouseAdapter() {

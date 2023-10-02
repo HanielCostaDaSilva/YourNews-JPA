@@ -132,23 +132,23 @@ public class TelaNoticia {
 		label_4.setBounds(21, 190, 431, 14);
 		frame.getContentPane().add(label_4);
 
-		label_2 = new JLabel("ID:");
-		label_2.setHorizontalAlignment(SwingConstants.LEFT);
-		label_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_2.setBounds(21, 269, 71, 14);
-		frame.getContentPane().add(label_2);
+		// label_2 = new JLabel("ID:");
+		// label_2.setHorizontalAlignment(SwingConstants.LEFT);
+		// label_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		// label_2.setBounds(21, 269, 71, 14);
+		// frame.getContentPane().add(label_2);
 
-		textField = new JTextField();
-		textField.setFont(new Font("Dialog", Font.PLAIN, 12));
-		textField.setColumns(10);
-		textField.setBounds(68, 264, 195, 20);
-		frame.getContentPane().add(textField);
+		// textField = new JTextField();
+		// textField.setFont(new Font("Dialog", Font.PLAIN, 12));
+		// textField.setColumns(10);
+		// textField.setBounds(68, 264, 195, 20);
+		// frame.getContentPane().add(textField);
 
 		button_1 = new JButton("Criar nova notícia");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (textField.getText().isEmpty() || textField_1.getText().isEmpty()) {
+					if (textField.getText().isEmpty()) {
 						label.setText("campo vazio");
 						return;
 					}
@@ -232,7 +232,7 @@ public class TelaNoticia {
 
 			// adicionar linhas no model
 			for (Noticia not : lista) {
-				model.addRow(new Object[] { not.getId(), not.getTitulo() });
+				model.addRow(new Object[] { not.getId(), not.getTitulo(), not.getLink() });
 			}
 
 			// atualizar model no table (visualizacao)

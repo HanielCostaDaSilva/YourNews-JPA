@@ -83,7 +83,7 @@ public class TelaAssunto {
 		frame.setModal(true);
 
 		frame.setResizable(false);
-		frame.setTitle("Cliente");
+		frame.setTitle("Assunto");
 		frame.setBounds(100, 100, 729, 385);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -133,26 +133,26 @@ public class TelaAssunto {
 		label_4.setBounds(21, 190, 431, 14);
 		frame.getContentPane().add(label_4);
 
-		label_2 = new JLabel("cpf:");
-		label_2.setHorizontalAlignment(SwingConstants.LEFT);
-		label_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_2.setBounds(21, 269, 71, 14);
-		frame.getContentPane().add(label_2);
+		// label_2 = new JLabel("cpf:");
+		// label_2.setHorizontalAlignment(SwingConstants.LEFT);
+		// label_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		// label_2.setBounds(21, 269, 71, 14);
+		// frame.getContentPane().add(label_2);
 
-		textField = new JTextField();
-		textField.setFont(new Font("Dialog", Font.PLAIN, 12));
-		textField.setColumns(10);
-		textField.setBounds(68, 264, 195, 20);
-		frame.getContentPane().add(textField);
+		// textField = new JTextField();
+		// textField.setFont(new Font("Dialog", Font.PLAIN, 12));
+		// textField.setColumns(10);
+		// textField.setBounds(68, 264, 195, 20);
+		// frame.getContentPane().add(textField);
 
-		button_1 = new JButton("Criar novo cliente");
+		button_1 = new JButton("Criar novo assunto");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (textField.getText().isEmpty() || textField_1.getText().isEmpty()) {
-						label.setText("campo vazio");
-						return;
-					}
+					// if (textField.getText().isEmpty() || textField_1.getText().isEmpty()) {
+					// 	label.setText("campo vazio");
+					// 	return;
+					// }
 					String cpf = textField.getText();
 					String nome = textField_1.getText();
 					Fachada.adicionarAssunto(nome);
@@ -197,7 +197,7 @@ public class TelaAssunto {
 						label.setText("nao implementado ");
 						int id = (int) table.getValueAt(table.getSelectedRow(), 0);
 						Fachada.removerAssunto(id);
-						label.setText("cliente apagado");
+						label.setText("assunto apagado");
 						listagem();
 					} else
 						label.setText("nao selecionado");
@@ -219,7 +219,7 @@ public class TelaAssunto {
 			DefaultTableModel model = new DefaultTableModel();
 
 			// adicionar colunas no model
-			model.addColumn("cpf");
+			model.addColumn("ID");
 			model.addColumn("nome");
 
 			// adicionar linhas no model
