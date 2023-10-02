@@ -111,8 +111,35 @@ public class TelaLogin {
 					TelaPrincipal tela = new TelaPrincipal();
 					frame.dispose();
 				}
-				else
-					label_2.setText("usuario ou senha incorreto");
+				else {
+					label_2.setText("Usuario ou senha incorreto");
+
+					JFrame dialogFrame = new JFrame("Erro de Login");
+					dialogFrame.setBounds(100, 100, 400, 450);
+					dialogFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+					JLabel dialogLabel = new JLabel("Você parece ser legal... Vou abrir uma exceção dessa vez...");
+					dialogLabel.setBounds(0, 50, 400, 30);
+					dialogFrame.add(dialogLabel);
+
+					JButton okButton = new JButton("Vou fazer silêncio...");
+					okButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							try {
+								Fachada.adicionarUsuario(nome, senha);
+								Fachada.logado = usu;								
+							} catch (Exception e1) {
+								e1.printStackTrace();
+							}
+							dialogFrame.dispose();
+						}
+					});
+					okButton.setBounds(100, 200, 100, 30);
+					dialogFrame.add(okButton);
+
+					dialogFrame.setLayout(null);
+					dialogFrame.setVisible(true);
+				}
 			}
 		});
 		button.setBounds(69, 96, 89, 23);
