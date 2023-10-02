@@ -1,7 +1,4 @@
 package appswing;
-
-import java.awt.EventQueue;
-
 /**********************************
  * IFPB - Curso Superior de Tec. em Sist. para Internet
  * POO
@@ -24,33 +21,36 @@ import service.Fachada;
 
 public class TelaPrincipal {
 	private JFrame frame;
-	private JMenu mnNoticia;
-	private JMenu mnAssunto;
+	private JMenu mnCarro;
+	private JMenu mnCliente;
+	private JMenu mnAluguel;
 	private JMenu mnConsulta;
 	private JLabel label;
+
+
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaPrincipal window = new TelaPrincipal();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					TelaPrincipal window = new TelaPrincipal();
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
 	 */
 	public TelaPrincipal() {
 		initialize();
-		frame.setTitle("Notícias - usuario: " + Fachada.logado.getNickname());
+		frame.setTitle("Locadora - usuario: "+ Fachada.logado.getNickname());
 		frame.setVisible(true);
 	}
 
@@ -59,7 +59,7 @@ public class TelaPrincipal {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setTitle("Notícias");
+		frame.setTitle("Locadora");
 		frame.setBounds(100, 100, 450, 363);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -69,42 +69,42 @@ public class TelaPrincipal {
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setText("Inicializando...");
 		label.setBounds(0, 0, 467, 302);
-		// label.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+		//label.setBounds(0, 0, frame.getWidth(), frame.getHeight());
 		ImageIcon imagem = new ImageIcon(getClass().getResource("/imgs/background.png"));
-		imagem = new ImageIcon(
-				imagem.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_DEFAULT));// label.setIcon(fotos);
+		imagem = new ImageIcon(imagem.getImage().getScaledInstance(label.getWidth(),label.getHeight(), Image.SCALE_DEFAULT));//		label.setIcon(fotos);
 		label.setIcon(imagem);
 		frame.getContentPane().add(label);
 		frame.setResizable(false);
 
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
-		mnNoticia = new JMenu("Noticia");
-		mnNoticia.addMouseListener(new MouseAdapter() {
+		mnCarro = new JMenu("Carro");
+		mnCarro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				TelaNoticia tela = new TelaNoticia();
 			}
 		});
-		menuBar.add(mnNoticia);
+		menuBar.add(mnCarro);
 
-		mnAssunto = new JMenu("Assunto");
-		mnAssunto.addMouseListener(new MouseAdapter() {
+		mnCliente = new JMenu("Cliente");
+		mnCliente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				TelaAssunto tela = new TelaAssunto();
 			}
 		});
-		menuBar.add(mnAssunto);
-
-		/*
-		 * mnAluguel = new JMenu("Aluguel"); mnAluguel.addMouseListener(new
-		 * MouseAdapter() {
-		 * 
-		 * @Override public void mouseClicked(MouseEvent e) { TelaAluguel tela = new
-		 * TelaAluguel(); } }); menuBar.add(mnAluguel);
-		 */
-
+		menuBar.add(mnCliente);
+		
+		mnAluguel = new JMenu("Aluguel");
+		mnAluguel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				TelaAluguel tela = new TelaAluguel();
+			}
+		});
+		menuBar.add(mnAluguel);
+		
 		mnConsulta = new JMenu("Consultas");
 		mnConsulta.addMouseListener(new MouseAdapter() {
 			@Override

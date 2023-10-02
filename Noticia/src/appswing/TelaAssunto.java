@@ -209,25 +209,6 @@ public class TelaAssunto {
 		button_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		button_2.setBounds(281, 213, 171, 23);
 		frame.getContentPane().add(button_2);
-
-		/*
-		 * button_3 = new JButton("exibir alugueis"); button_3.setFont(new
-		 * Font("Tahoma", Font.PLAIN, 12)); button_3.addActionListener(new
-		 * ActionListener() { public void actionPerformed(ActionEvent e) { try { if
-		 * (table.getSelectedRow() >= 0) { String cpf = (String)
-		 * table.getValueAt(table.getSelectedRow(), 0); Assunto assunto =
-		 * Fachada.localizarAssunto(id);
-		 * 
-		 * if (assunto != null) { String texto = ""; if
-		 * (cliente.getAlugueis().isEmpty()) texto = "nao possui alugueis"; else for
-		 * (Aluguel a : cliente.getAlugueis()) texto = texto + a.getDatainicio() + "-" +
-		 * a.getDatafim() + "-" + a.getCarro().getPlaca() + "\n";
-		 * 
-		 * JOptionPane.showMessageDialog(frame, texto, "alugueis", 1); } } } catch
-		 * (Exception erro) { label.setText(erro.getMessage()); } } });
-		 */
-		button_3.setBounds(96, 214, 134, 23);
-		frame.getContentPane().add(button_3);
 	}
 
 	public void listagem() {

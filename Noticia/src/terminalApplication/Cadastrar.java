@@ -40,7 +40,7 @@ class Cadastrar {
       manager.store(a6);
       manager.commit();
 
-      Noticia n1 = new Noticia(Util.gerarIdNoticia(),
+      Noticia n1 = new Noticia(
           "final emocionante: Botafogo derrota Flamengo nas quartas de finais", "2023-08-24",
           "https://exemplo.com/noticia1");
 
@@ -50,7 +50,7 @@ class Cadastrar {
       manager.store(n1);
       manager.commit();
 
-      Noticia n2 = new Noticia(Util.gerarIdNoticia(),
+      Noticia n2 = new Noticia(
           "bomba! Jojô Toddynho reata namoro com o ex. Veja o seu desabafo!", "2023-08-23",
           "https://exemplo.com/noticia2");
 
@@ -60,7 +60,7 @@ class Cadastrar {
       manager.store(n2);
       manager.commit();
 
-      Noticia n3 = new Noticia(Util.gerarIdNoticia(),
+      Noticia n3 = new Noticia(
           "veja quais profissões deixaram de existir graças às IAs.", "2023-08-22",
           "https://exemplo.com/noticia3");
 
@@ -73,7 +73,7 @@ class Cadastrar {
       manager.store(n3);
       manager.commit();
 
-      Noticia n4 = new Noticia(Util.gerarIdNoticia(),
+      Noticia n4 = new Noticia(
           "governo ameaça baixar o piso da enfermagem.", "2023-07-20",
           "https://exemplo.com/noticia4");
 
@@ -86,7 +86,7 @@ class Cadastrar {
       manager.store(n4);
       manager.commit();
 
-      Noticia n5 = new Noticia(Util.gerarIdNoticia(),
+      Noticia n5 = new Noticia(
           "anunciado! GTA 6 não é mais um sonho! Veja a data de lançamento.", "2023-08-20",
           "https://exemplo.com/noticia5");
 
@@ -96,7 +96,7 @@ class Cadastrar {
       manager.store(n5);
       manager.commit();
 
-      Noticia n6 = new Noticia(Util.gerarIdNoticia(),
+      Noticia n6 = new Noticia(
           "edu camargo ensina a fazer uma página Web Top.", "2023-08-20",
           "https://exemplo.com/noticia6");
 
@@ -112,7 +112,7 @@ class Cadastrar {
       manager.store(n6);
       manager.commit();
 
-      Noticia n7 = new Noticia(Util.gerarIdNoticia(),
+      Noticia n7 = new Noticia(
           "cachorro chora no velório da dona, confira o vídeo sem se emocionar.", "2023-08-18",
           "https://exemplo.com/noticia7");
 
@@ -121,7 +121,7 @@ class Cadastrar {
 
       manager.store(n7);
       manager.commit();
-      Noticia n8 = new Noticia(Util.gerarIdNoticia(),
+      Noticia n8 = new Noticia(
           "graças ao governo, 17% dos paraíbanos estão desempregados", "2023-07-20",
           "https://exemplo.com/noticia4");
 

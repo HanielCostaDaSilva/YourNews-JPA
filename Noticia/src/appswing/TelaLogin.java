@@ -60,16 +60,16 @@ public class TelaLogin {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				Fachada.inicializar();
-				if (Fachada.listarUsuarios().isEmpty()) {
+				if(Fachada.listarUsuarios().isEmpty()) {
 					try {
 						Fachada.adicionarUsuario("fausto", "1234");
 						label_2.setText("usuario 'fausto' cadastrado");
-					} catch (Exception ex) {
+					}
+					catch(Exception ex) {
 						label_2.setText("nao conseguiu criar usuario");
 					}
 				}
 			}
-
 			@Override
 			public void windowClosed(WindowEvent e) {
 				Fachada.finalizar();
@@ -104,44 +104,15 @@ public class TelaLogin {
 				String nome = textField.getText();
 				String senha = textField_1.getText();
 
-				Usuario usu = Fachada.localizarUsuario(nome, senha);
+				Usuario usu = Fachada.localizarUsuario(nome,senha);
 
-				if (usu != null) {
+				if(usu!=null) {
 					Fachada.logado = usu;
 					TelaPrincipal tela = new TelaPrincipal();
 					frame.dispose();
-				} else {
-					label_2.setText("Usuario ou senha incorreto");
-
-					JFrame dialogFrame = new JFrame("Erro de Login");
-					dialogFrame.setBounds(100, 100, 300, 150);
-					dialogFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-					JLabel dialogLabel = new JLabel("Você parece ser legal... Vou abrir uma exceção dessa vez...");
-					dialogLabel.setBounds(20, 20, 250, 30);
-					dialogFrame.add(dialogLabel);
-
-					JButton okButton = new JButton("OK");
-					okButton.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							try {
-								Fachada.adicionarUsuario(nome, senha);
-								Fachada.logado = usu;
-								TelaPrincipal tela = new TelaPrincipal();
-								frame.dispose();
-
-							} catch (Exception e1) {
-								e1.printStackTrace();
-							}
-							dialogFrame.dispose();
-						}
-					});
-					okButton.setBounds(110, 60, 80, 30);
-					dialogFrame.add(okButton);
-
-					dialogFrame.setLayout(null);
-					dialogFrame.setVisible(true);
 				}
+				else
+					label_2.setText("usuario ou senha incorreto");
 			}
 		});
 		button.setBounds(69, 96, 89, 23);
