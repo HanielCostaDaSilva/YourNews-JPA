@@ -48,9 +48,13 @@ public class DAOAssunto extends DAO<Assunto> {
 	 * @param id O ID do assunto para o qual deseja recuperar as notícias.
 	 * @return Uma lista de notícias associadas ao assunto com o ID especificado.
 	 */
-	public List<Noticia> getnoticiasPorAssunto(int id) {
+	public List<Noticia> getnoticiasPorAssunto(String assunto) {
 		Query q = manager.query();
-		q.descend("id").constrain(id);
+		q.constrain(Assunto.class);
+		q.descend("nome").constrain(assunto);
+		List<Noticia> resultados = q.execute();
+		if (resultados.size() > 0)
+			return resultados;
 
 		// forço o erro, fazendo com que tente pegar o primeiro valor da consulta,
 		// existindo ou não.

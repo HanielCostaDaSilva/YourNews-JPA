@@ -41,7 +41,6 @@ public class TelaNoticia {
 	private JTable table;
 	private JScrollPane scrollPane;
 	private JTextField textField;
-	private JTextField textField_1;
 	private JTextField textField_2;
 	private JButton button;
 	private JButton button_1;
@@ -50,6 +49,12 @@ public class TelaNoticia {
 	private JLabel label_2;
 	private JLabel label_3;
 	private JLabel label_4;
+	private JLabel label_data;
+	private JLabel label_link;
+	private JTextField textField_1;
+	private JTextField textField_3;
+	private JLabel label_1;
+	private JLabel label_5;
 
 	/**
 	 * Launch the application.
@@ -125,7 +130,7 @@ public class TelaNoticia {
 
 		label = new JLabel(""); // label de mensagem
 		label.setForeground(Color.BLUE);
-		label.setBounds(21, 321, 688, 14);
+		label.setBounds(25, 299, 688, 14);
 		frame.getContentPane().add(label);
 
 		label_4 = new JLabel("resultados:");
@@ -148,12 +153,12 @@ public class TelaNoticia {
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (textField.getText().isEmpty()) {
-						label.setText("campo vazio");
-						return;
-					}
-					String titulo = textField.getText();
-					String dataPublicacao = textField_1.getText();
+					// if (textField.getText().isEmpty()) {
+					// 	label.setText("campo vazio");
+					// 	return;
+					// }
+					String titulo = textField_2.getText();
+					String dataPublicacao = textField_3.getText();
 					String link = textField_2.getText();
 					Fachada.adicionarNoticia(titulo, dataPublicacao, link);
 					label.setText("Notícia criada: " + titulo);
@@ -164,7 +169,7 @@ public class TelaNoticia {
 			}
 		});
 		button_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		button_1.setBounds(525, 265, 153, 23);
+		button_1.setBounds(291, 270, 153, 23);
 		frame.getContentPane().add(button_1);
 
 		button = new JButton("Listar");
@@ -180,19 +185,13 @@ public class TelaNoticia {
 		label_3 = new JLabel("Título:");
 		label_3.setHorizontalAlignment(SwingConstants.LEFT);
 		label_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_3.setBounds(281, 269, 63, 14);
+		label_3.setBounds(40, 247, 63, 14);
 		frame.getContentPane().add(label_3);
-
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Dialog", Font.PLAIN, 12));
-		textField_1.setColumns(10);
-		textField_1.setBounds(336, 264, 168, 20);
-		frame.getContentPane().add(textField_1);
 
 		textField_2 = new JTextField();
 		textField_2.setFont(new Font("Dialog", Font.PLAIN, 12));
 		textField_2.setColumns(10);
-		textField_2.setBounds(336, 264, 168, 20);
+		textField_2.setBounds(81, 244, 168, 20);
 		frame.getContentPane().add(textField_2);
 
 		button_2 = new JButton("Apagar selecionado");
@@ -216,6 +215,30 @@ public class TelaNoticia {
 		button_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		button_2.setBounds(281, 213, 171, 23);
 		frame.getContentPane().add(button_2);
+		
+		textField_1 = new JTextField();
+		textField_1.setFont(new Font("Dialog", Font.PLAIN, 12));
+		textField_1.setColumns(10);
+		textField_1.setBounds(81, 272, 168, 20);
+		frame.getContentPane().add(textField_1);
+		
+		textField_3 = new JTextField();
+		textField_3.setFont(new Font("Dialog", Font.PLAIN, 12));
+		textField_3.setColumns(10);
+		textField_3.setBounds(81, 303, 168, 20);
+		frame.getContentPane().add(textField_3);
+		
+		label_1 = new JLabel("Link:");
+		label_1.setHorizontalAlignment(SwingConstants.LEFT);
+		label_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		label_1.setBounds(40, 274, 63, 14);
+		frame.getContentPane().add(label_1);
+		
+		label_5 = new JLabel("Data:");
+		label_5.setHorizontalAlignment(SwingConstants.LEFT);
+		label_5.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		label_5.setBounds(40, 307, 63, 14);
+		frame.getContentPane().add(label_5);
 	}
 
 	public void listagem() {

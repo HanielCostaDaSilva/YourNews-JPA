@@ -145,7 +145,10 @@ public class TelaConsulta {
 						List<Assunto> resultado2 = Fachada.localizarAssuntosPorQuantidadeNoticia(Integer.parseInt(quantidade));
 						listagemAssunto(resultado2);
 						break;
-
+					case 2:
+						String assunto = JOptionPane.showInputDialog("digite o assunto");
+						List<Noticia> resultado3 = Fachada.localizarNoticiasPorAssunto(assunto);
+						listagemNoticias2(resultado3);
 					}
 
 			}
@@ -155,7 +158,7 @@ public class TelaConsulta {
 
 		comboBox = new JComboBox();
 		comboBox.setToolTipText("selecione a consulta");
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Notícias de uma determinada data", "Assuntos com um determinado num. de noticias"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Notícias de uma determinada data", "Assuntos com um determinado num. de noticias", "Notícias de um determinado assunto"}));
 		comboBox.setBounds(21, 10, 513, 22);
 		frame.getContentPane().add(comboBox);
 	}
@@ -168,15 +171,15 @@ public class TelaConsulta {
 			//adicionar colunas no model
 			model.addColumn("id");
 			model.addColumn("nome");
-			model.addColumn("placa");
-			model.addColumn("data inicial");
-			model.addColumn("data final");
-			model.addColumn("total a pagar");
-			model.addColumn("finalizado");
+			model.addColumn("data");
+			model.addColumn("link");
+			// model.addColumn("data final");
+			// model.addColumn("total a pagar");
+			// model.addColumn("finalizado");
 
 			//adicionar linhas no model
 			for(Noticia not : lista) {
-				model.addRow(new Object[]{not.getId(), not.getTitulo(), not.getDataPublicacao(), not.getLink(), not.getListaAssuntos()});
+				model.addRow(new Object[]{not.getId(), not.getTitulo(), not.getDataPublicacao(), not.getLink()});
 			}
 			//atualizar model no table (visualizacao)
 			table.setModel(model);
@@ -210,6 +213,24 @@ public class TelaConsulta {
 		catch(Exception erro){
 			label.setText(erro.getMessage());
 		}
+	}
+
+	public void listagemNoticias2(List<Noticia> lista) {
+		try {
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("ID");
+		model.addColumn("Nome");
+		model.addColumn("Notícias");
+		for(Noticia not : lista) {
+				model.addRow(new Object[]{not.getId(), not.getTitulo(), not.getListaAssuntos()} );
+		}
+		table.setModel(model);
+		label_4.setText("resultados: "+lista.size()+ " objetos");
+		}
+		catch(Exception erro){
+			label.setText(erro.getMessage());
+		}
+		
 	}
 
 }

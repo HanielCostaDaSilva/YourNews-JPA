@@ -231,9 +231,9 @@ public class Fachada {
      * @return Uma lista de notícias associadas ao assunto com o ID especificado.
      *         Se ocorrer algum erro durante a pesquisa.
      */
-    public static List<Noticia> localizarNoticiasPorAssunto(int idAssunto) {
+    public static List<Noticia> localizarNoticiasPorAssunto(String assunto) {
 
-        List<Noticia> noticiasPorAssunto = daoAssunto.getnoticiasPorAssunto(idAssunto);
+        List<Noticia> noticiasPorAssunto = daoAssunto.getnoticiasPorAssunto(assunto);
         return noticiasPorAssunto;
     }
 
