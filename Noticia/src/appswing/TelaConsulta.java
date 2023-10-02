@@ -135,13 +135,14 @@ public class TelaConsulta {
 					label_4.setText("consulta nao selecionada");
 				else
 					switch(index) {
-					case 0: 
-						List<Noticia> resultado1 = Fachada.localizarNoticiasData("2023-09-15");
+					case 0:
+					String data = JOptionPane.showInputDialog("Digite a data"); 
+						List<Noticia> resultado1 = Fachada.localizarNoticiasData(data);
 						listagemNoticias(resultado1);
 						break;
 					case 1: 
-						String modelo = JOptionPane.showInputDialog("digite o modelo");
-						List<Assunto> resultado2 = Fachada.localizarAssuntosPorQuantidadeNoticia(2);
+						String quantidade = JOptionPane.showInputDialog("digite a quantidade");
+						List<Assunto> resultado2 = Fachada.localizarAssuntosPorQuantidadeNoticia(Integer.parseInt(quantidade));
 						listagemAssunto(resultado2);
 						break;
 
@@ -154,7 +155,7 @@ public class TelaConsulta {
 
 		comboBox = new JComboBox();
 		comboBox.setToolTipText("selecione a consulta");
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"alugueis finalizados", "alugueis de um determinado modelo de carro", "carros que possuem N alugueis"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Notícias de uma determinada data", "Assuntos com um determinado num. de noticias"}));
 		comboBox.setBounds(21, 10, 513, 22);
 		frame.getContentPane().add(comboBox);
 	}
@@ -193,9 +194,9 @@ public class TelaConsulta {
 			DefaultTableModel model = new DefaultTableModel();
 
 			//adicionar colunas no model
-			model.addColumn("placa");
-			model.addColumn("modelo");
-			model.addColumn("alugado");
+			model.addColumn("ID");
+			model.addColumn("Nome");
+			model.addColumn("Notícias");
 
 			//adicionar linhas no model
 			for(Assunto ass : lista) {
