@@ -189,6 +189,14 @@ public class Fachada {
         DAO.commit();
     }
 
+    /**
+     * Associa um assunto a uma notícia.
+     *
+     * @param idNoticia O ID da notícia à qual o assunto será associado.
+     * @param idAssunto O ID do assunto a ser associado à notícia.
+     * @throws Exception Lançada se ocorrerem erros durante o processo de
+     *                   associação.
+     */
     public static void associarAssuntoNoticia(int idNoticia, int idAssunto) throws Exception {
         DAO.begin();
 
@@ -200,11 +208,11 @@ public class Fachada {
             throw new Exception("Notícia ou Assunto não encontrados!");
         }
 
-        else if (noticia.localizar(assunto.getNome()) != null){
-            throw new Exception("Assunto:" +assunto.getNome() + " já inserido");
-        }
-        else if(checarQuantidadeAssunto(noticia)){
-            throw new Exception("Noticia: " +noticia.getTitulo().substring(0, 10) + " já atingiu o limite de "+ limiteAssunto+ " assuntos");
+        else if (noticia.localizar(assunto.getNome()) != null) {
+            throw new Exception("Assunto:" + assunto.getNome() + " já inserido");
+        } else if (checarQuantidadeAssunto(noticia)) {
+            throw new Exception("Noticia: " + noticia.getTitulo().substring(0, 10) + " já atingiu o limite de "
+                    + limiteAssunto + " assuntos");
         }
         // Associe o assunto à notícia
         noticia.adicionar(assunto);
@@ -260,8 +268,10 @@ public class Fachada {
      * Realiza uma pesquisa para localizar assuntos que possuam uma quantidade
      * específica de notícias associadas.
      *
-     * @param quantidade A quantidade desejada de notícias que os assuntos devem ter.
-     * @return Uma lista de assuntos que atendem ao critério de quantidade denotícias. Se ocorrer algum erro durante a pesquisa.
+     * @param quantidade A quantidade desejada de notícias que os assuntos devem
+     *                   ter.
+     * @return Uma lista de assuntos que atendem ao critério de quantidade
+     *         denotícias. Se ocorrer algum erro durante a pesquisa.
      */
     public static List<Assunto> localizarAssuntosPorQuantidadeNoticia(int quantidade) {
 

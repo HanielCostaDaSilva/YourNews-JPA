@@ -96,11 +96,11 @@ public class TelaPrincipal {
 		});
 		menuBar.add(mnAssunto);
 		
-		mnAluguel = new JMenu("Aluguel");
+		mnAluguel = new JMenu("Noticias E Assuntos");
 		mnAluguel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				TelaAluguel tela = new TelaAluguel();
+				TelaAssuntoNoticia tela = new TelaAssuntoNoticia();
 			}
 		});
 		menuBar.add(mnAluguel);

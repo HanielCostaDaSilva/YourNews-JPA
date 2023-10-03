@@ -21,7 +21,6 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -30,17 +29,13 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.db4o.ObjectContainer;
-
-import model.Assunto;
 import model.Noticia;
 import service.Fachada;
 
 public class TelaNoticia {
 	private JDialog frame;
-	private JTable table;
-	private JScrollPane scrollPane;
-	private JTextField textField;
+	private JTable noticiaTable;
+	private JScrollPane noticiaScrollPane;
 	private JTextField textField_2;
 	private JButton button;
 	private JButton button_1;
@@ -104,29 +99,29 @@ public class TelaNoticia {
 			}
 		});
 
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(21, 43, 674, 148);
-		frame.getContentPane().add(scrollPane);
+		noticiaScrollPane = new JScrollPane();
+		noticiaScrollPane.setBounds(21, 43, 674, 148);
+		frame.getContentPane().add(noticiaScrollPane);
 
-		table = new JTable();
-		table.addMouseListener(new MouseAdapter() {
+		noticiaTable = new JTable();
+		noticiaTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				label_4.setText("selecionado=" + (String) table.getValueAt(table.getSelectedRow(), 0));
+				label_4.setText("selecionado=" + (String) noticiaTable.getValueAt(noticiaTable.getSelectedRow(), 0));
 			}
 		});
-		table.setGridColor(Color.BLACK);
-		table.setRequestFocusEnabled(false);
-		table.setFocusable(false);
-		table.setBackground(Color.YELLOW);
-		table.setFillsViewportHeight(true);
-		table.setRowSelectionAllowed(true);
-		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		scrollPane.setViewportView(table);
-		table.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setShowGrid(true);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		noticiaTable.setGridColor(Color.BLACK);
+		noticiaTable.setRequestFocusEnabled(false);
+		noticiaTable.setFocusable(false);
+		noticiaTable.setBackground(Color.YELLOW);
+		noticiaTable.setFillsViewportHeight(true);
+		noticiaTable.setRowSelectionAllowed(true);
+		noticiaTable.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		noticiaScrollPane.setViewportView(noticiaTable);
+		noticiaTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+		noticiaTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		noticiaTable.setShowGrid(true);
+		noticiaTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
 		label = new JLabel(""); // label de mensagem
 		label.setForeground(Color.BLUE);
@@ -198,9 +193,9 @@ public class TelaNoticia {
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (table.getSelectedRow() >= 0) {
+					if (noticiaTable.getSelectedRow() >= 0) {
 						label.setText("nao implementado ");
-						int id = (int) table.getValueAt(table.getSelectedRow(), 0);
+						int id = (int) noticiaTable.getValueAt(noticiaTable.getSelectedRow(), 0);
 
 						Fachada.removerNoticia(id);
 						label.setText("Notícia apagada");
@@ -245,7 +240,7 @@ public class TelaNoticia {
 		try {
 			List<Noticia> lista = Fachada.listarNoticias();
 
-			// model armazena todas as linhas e colunas do table
+			// model armazena todas as linhas e colunas do noticiaTable
 			DefaultTableModel model = new DefaultTableModel();
 
 			// adicionar colunas no model
@@ -258,8 +253,8 @@ public class TelaNoticia {
 				model.addRow(new Object[] { not.getId(), not.getTitulo(), not.getLink() });
 			}
 
-			// atualizar model no table (visualizacao)
-			table.setModel(model);
+			// atualizar model no noticiaTable (visualizacao)
+			noticiaTable.setModel(model);
 
 			label_4.setText("resultados: " + lista.size() + " objetos");
 		} catch (Exception erro) {
