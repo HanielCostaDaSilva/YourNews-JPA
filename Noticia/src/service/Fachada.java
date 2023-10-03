@@ -35,7 +35,7 @@ public class Fachada {
         Noticia noticia = new Noticia(titulo, dataPublicacao, link);
         daoNoticia.create(noticia);
         DAO.commit();
-
+        "Filtragem híbrida" and "comércio virtual" and redes sociais
         return noticia;
     }
 
