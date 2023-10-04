@@ -16,6 +16,13 @@ public class Noticia {
 		this.link = link;
 	}
 
+	public Noticia(int id, String titulo, String dataPublicacao, String link) {
+		this.id = id;
+		this.titulo = titulo;
+		this.dataPublicacao = dataPublicacao;
+		this.link = link;
+	}
+
 	
 
 	public int getId() {

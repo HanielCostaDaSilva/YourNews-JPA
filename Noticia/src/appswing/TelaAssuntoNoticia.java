@@ -38,19 +38,21 @@ import service.Fachada;
 import javax.swing.JToolBar;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.BoxLayout;
 
 public class TelaAssuntoNoticia {
 	private JDialog frame;
 	private JTable listarAssuntotable;
 	private JScrollPane assuntoScrollPane;
-	private JTextField textField;
+	private JTextField resultado;
 	private JTextField assuntoSelecionadoInput;
 	private JButton listarAssuntosBtn;
 	private JButton associarAssuntoNoticiaBtn;
-	private JLabel resultado;
 	private JTextField noticiaSelecionadaInput;
 	private JScrollPane noticiaScrollPane;
 	private JTable listarNoticiaTable;
+	private JLabel noticiaLabel;
+	private JButton listarNoticiaBtn;
 
 	/**
 	 * Launch the application.
@@ -85,7 +87,7 @@ public class TelaAssuntoNoticia {
 		frame.setModal(true);
 
 		frame.setResizable(false);
-		frame.setTitle("Assunto");
+		frame.setTitle("Assuntos e Notícias");
 		frame.setBounds(100, 100, 900, 442);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -103,8 +105,16 @@ public class TelaAssuntoNoticia {
 			}
 		});
 
+		resultado = new JTextField();
+		resultado.setBackground(new Color(0, 0, 0));
+		resultado.setEnabled(false);
+		resultado.setEditable(false);
+		resultado.setForeground(Color.BLUE);
+		resultado.setBounds(10, 374, 776, 18);
+		frame.getContentPane().add(resultado);
+
 		assuntoScrollPane = new JScrollPane();
-		assuntoScrollPane.setBounds(10, 43, 300, 265);
+		assuntoScrollPane.setBounds(10, 30, 193, 265);
 		frame.getContentPane().add(assuntoScrollPane);
 
 		listarAssuntotable = new JTable();
@@ -136,25 +146,27 @@ public class TelaAssuntoNoticia {
 		associarAssuntoNoticiaBtn = new JButton("Associar");
 		associarAssuntoNoticiaBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try{
+				try {
 
 					String noticiaSelecionadaText = noticiaSelecionadaInput.getText();
 					String assuntoSelecionadoText = assuntoSelecionadoInput.getText();
-				if (noticiaSelecionadaText.length() == 0 || assuntoSelecionadoText.length() == 0) //caso um dos campos esteja vazio
+					if (noticiaSelecionadaText.length() == 0 || assuntoSelecionadoText.length() == 0) // caso um dos
+																										// campos esteja
+																										// vazio
 
-					throw new Exception("Faltou preencher algum dos campos.");
+						throw new Exception("Faltou preencher algum dos campos.");
 					int idNoticia = Integer.parseInt(noticiaSelecionadaInput.getText());
 					int idAssunto = Integer.parseInt(assuntoSelecionadoInput.getText());
-					associarAssunto(idNoticia, idAssunto);
-				}
-				catch(Exception ex) {
+					associarAssunto(idNoticia,idAssunto);
+					resultado.setText("Noticia: "+noticiaSelecionadaText+" foi associada ao assunto "+assuntoSelecionadoText);
+				} catch (Exception ex) {
 					resultado.setText(ex.getMessage());
 				}
-				}
+			}
 		});
 
 		associarAssuntoNoticiaBtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		associarAssuntoNoticiaBtn.setBounds(309, 295, 186, 68);
+		associarAssuntoNoticiaBtn.setBounds(672, 54, 193, 68);
 		frame.getContentPane().add(associarAssuntoNoticiaBtn);
 
 		listarAssuntosBtn = new JButton("Listar Assuntos");
@@ -164,24 +176,17 @@ public class TelaAssuntoNoticia {
 				listagemAssunto();
 			}
 		});
-		listarAssuntosBtn.setBounds(91, 9, 139, 23);
+		listarAssuntosBtn.setBounds(10, 9, 193, 23);
 		frame.getContentPane().add(listarAssuntosBtn);
-
-		JButton listarNoticiaBtn = new JButton("Listar Noticia");
-		listarNoticiaBtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		listarNoticiaBtn.setBounds(609, 9, 139, 23);
-		frame.getContentPane().add(listarNoticiaBtn);
 
 		JPanel Assunto = new JPanel();
 		Assunto.setBounds(10, 326, 289, 37);
 		frame.getContentPane().add(Assunto);
+		Assunto.setLayout(new BoxLayout(Assunto, BoxLayout.X_AXIS));
 
-		JLabel assuntoLabel = new JLabel("Assunto id:");
+		JLabel assuntoLabel = new JLabel("Assunto:    ");
+		assuntoLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		Assunto.add(assuntoLabel);
-
-		resultado = new JLabel(""); // label de mensagem
-		Assunto.add(resultado);
-		resultado.setForeground(Color.BLUE);
 
 		assuntoSelecionadoInput = new JTextField();
 		Assunto.add(assuntoSelecionadoInput);
@@ -189,10 +194,12 @@ public class TelaAssuntoNoticia {
 		assuntoSelecionadoInput.setColumns(10);
 
 		JPanel noticiaPanel = new JPanel();
-		noticiaPanel.setBounds(504, 326, 370, 37);
+		noticiaPanel.setBounds(340, 326, 370, 37);
 		frame.getContentPane().add(noticiaPanel);
+		noticiaPanel.setLayout(new BoxLayout(noticiaPanel, BoxLayout.X_AXIS));
 
-		JLabel noticiaLabel = new JLabel("Noticia id:");
+		noticiaLabel = new JLabel("Noticia:    ");
+		noticiaLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		noticiaPanel.add(noticiaLabel);
 
 		JSeparator separator = new JSeparator();
@@ -204,7 +211,7 @@ public class TelaAssuntoNoticia {
 		noticiaSelecionadaInput.setColumns(10);
 
 		noticiaScrollPane = new JScrollPane();
-		noticiaScrollPane.setBounds(505, 43, 369, 265);
+		noticiaScrollPane.setBounds(210, 30, 452, 261);
 		frame.getContentPane().add(noticiaScrollPane);
 		listarNoticiaTable = new JTable();
 		listarNoticiaTable.setGridColor(Color.BLACK);
@@ -214,7 +221,11 @@ public class TelaAssuntoNoticia {
 		listarNoticiaTable.setFillsViewportHeight(true);
 		listarNoticiaTable.setRowSelectionAllowed(true);
 		listarNoticiaTable.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		listarNoticiaTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+		noticiaScrollPane.setColumnHeaderView(listarNoticiaTable);
 		noticiaScrollPane.setViewportView(listarNoticiaTable);
+		
 		listarNoticiaTable.setBorder(new LineBorder(new Color(0, 0, 0)));
 		listarNoticiaTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listarNoticiaTable.setShowGrid(true);
@@ -231,15 +242,43 @@ public class TelaAssuntoNoticia {
 			}
 		});
 
-		listarNoticiaBtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
 
-		listarNoticiaBtn.addActionListener(new ActionListener() {
+		JButton desassociarAssunto = new JButton("Desassociar");
+		desassociarAssunto.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		desassociarAssunto.setBounds(672, 147, 193, 68);
 
+		desassociarAssunto.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				listarNoticia();
+				try {
+					String noticiaSelecionadaText = noticiaSelecionadaInput.getText();
+					String assuntoSelecionadoText = assuntoSelecionadoInput.getText();
+
+					if (noticiaSelecionadaText.length() == 0 || assuntoSelecionadoText.length() == 0) {
+						throw new Exception("Faltou preencher algum dos campos.");
+					}
+
+					desassociarAssunto(Integer.parseInt(noticiaSelecionadaText),
+					Integer.parseInt(assuntoSelecionadoText));
+
+					resultado.setText("Noticia: " + noticiaSelecionadaText + " desasociada do assunto "
+							+ assuntoSelecionadoText + " com sucesso");
+				} catch (Exception ex) {
+					resultado.setText(ex.getMessage());
+				}
 			}
 		});
-		listarNoticiaBtn.setBounds(622, 9, 139, 23);
+
+		frame.getContentPane().add(desassociarAssunto);
+		
+		listarNoticiaBtn = new JButton("Listar Noticia");
+		listarNoticiaBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		listarNoticiaBtn.setVerticalAlignment(SwingConstants.BOTTOM);
+		listarNoticiaBtn.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		listarNoticiaBtn.setBounds(210, 9, 219, 23);
 		frame.getContentPane().add(listarNoticiaBtn);
 	}
 
@@ -269,28 +308,38 @@ public class TelaAssuntoNoticia {
 
 	public void listarNoticia() {
 		try {
-			List<Noticia> lista = Fachada.listarNoticias(); // Substitua pela chamada correta para listar notícias
-
-			// Modelo para a tabela de notícias
-			DefaultTableModel model = new DefaultTableModel();
+			List<Noticia> lista = Fachada.listarNoticias();
+	
+			// Configurar o modelo da tabela
+			DefaultTableModel model = new DefaultTableModel() {
+				@Override
+				public boolean isCellEditable(int row, int column) {
+					return false;
+				}
+			};
+	
 			// Adicionar colunas no modelo
 			model.addColumn("ID");
 			model.addColumn("Título");
-
+			model.addColumn("Publicada");
+	
 			// Adicionar linhas no modelo
 			for (Noticia noticia : lista) {
-				model.addRow(new Object[] { noticia.getId(), noticia.getTitulo() });
+				model.addRow(new Object[] { Integer.toString(noticia.getId()), noticia.getTitulo(), noticia.getDataPublicacao() });
 			}
+	
+			// Configurar o modelo na tabela
 			listarNoticiaTable.setModel(model);
-
+	
 		} catch (Exception e) {
 			resultado.setText(e.getMessage());
 		}
 	}
-
-	public void associarAssunto(int idAssunto, int idNoticia) throws Exception {
-
+	public void associarAssunto(int idNoticia, int idAssunto) throws Exception {
 		Fachada.associarAssuntoNoticia(idNoticia, idAssunto);
+	}
 
+	public void desassociarAssunto(int idNoticia, int idAssunto) throws Exception {
+		Fachada.desassociarNoticiaAssunto(idNoticia, idAssunto);
 	}
 }
