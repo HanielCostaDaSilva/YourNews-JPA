@@ -45,4 +45,11 @@ public class DAONoticia extends DAO<Noticia> {
 		return q.execute();
 	}
 
+	public List<Noticia>  getNoticiasPorTitulo(String titulo) {
+		Query q = manager.query();
+		q.constrain(Noticia.class);
+		q.descend("titulo").constrain(titulo);
+		return q.execute();
+	}
+
 }

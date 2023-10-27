@@ -52,14 +52,9 @@ public class DAOAssunto extends DAO<Assunto> {
 		Query q = manager.query();
 		q.constrain(Assunto.class);
 		q.descend("nome").constrain(assunto);
-		List<Noticia> resultados = q.execute();
-		if (resultados.size() > 0)
-			return resultados;
-
-		// forço o erro, fazendo com que tente pegar o primeiro valor da consulta,
-		// existindo ou não.
+		List<Assunto> resultados = q.execute();
 		try {
-			Assunto a = ((Assunto) q.execute().get(0));
+			Assunto a = ((Assunto) resultados.get(0));
 			return a.getListaNoticia(); // Se existir, retorne sua lista;
 
 		} catch (Exception e) {
@@ -87,6 +82,21 @@ public class DAOAssunto extends DAO<Assunto> {
 	}
 
 	/**
+	 * Retorna uma lista de assuntos que têm uma quantidade desejada de notícias.
+	 * 
+	 * @return Uma lista de assuntos com a quantidade desejada de notícias.
+	 */
+	public List<Assunto> getAssuntosPorQuantidadeNoticia() {
+		Query q = manager.query();
+		q.constrain(Assunto.class);
+		q.constrain(new FiltroQuantidade());
+		List<Assunto> assuntos = q.execute();
+
+		return assuntos;
+
+	}
+
+	/**
 	 * Classe utilizada para filtrar assuntos com base na quantidade de notícias
 	 * associadas.
 	 */
@@ -99,6 +109,10 @@ public class DAOAssunto extends DAO<Assunto> {
 			this.quantidade = quantidade;
 		}
 
+		FiltroQuantidade() {
+			this.quantidade = 2;
+		}
+
 		public void evaluate(Candidate candidate) {
 			Assunto a = (Assunto) candidate.getObject();
 			if (a.getListaNoticia().size() > quantidade) {
@@ -107,5 +121,12 @@ public class DAOAssunto extends DAO<Assunto> {
 				candidate.include(false);
 		}
 
+	}
+
+	public List<Assunto> getAssuntosPorNome(String nome) {
+		Query q = manager.query();
+		q.constrain(Noticia.class);
+		q.descend("nome").constrain(nome);
+		return q.execute();
 	}
 }

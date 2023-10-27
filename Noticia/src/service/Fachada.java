@@ -28,8 +28,8 @@ public class Fachada {
      */
     public static Noticia adicionarNoticia(String titulo, String dataPublicacao, String link) throws Exception {
         DAO.begin();
-        Noticia resultado = daoNoticia.read(titulo);
-        if (resultado != null)
+        
+        if (daoNoticia.getNoticiasPorTitulo(titulo).size() !=0)
             throw new Exception("Noticia:" + titulo + "já cadastrado!");
 
         Noticia noticia = new Noticia(titulo, dataPublicacao, link);
@@ -40,9 +40,8 @@ public class Fachada {
 
     public static Assunto adicionarAssunto(String nome) throws Exception {
         DAO.begin();
-        Assunto resultado = daoAssunto.read(nome);
-        if (resultado != null)
-            throw new Exception("Assunto:" + nome + "já cadastrado!");
+        if (daoNoticia.getNoticiasPorTitulo(nome).size() !=0)
+            throw new Exception("Assuntp:" + nome + "já cadastrado!");
 
         Assunto assunto = new Assunto(nome);
         daoAssunto.create(assunto);

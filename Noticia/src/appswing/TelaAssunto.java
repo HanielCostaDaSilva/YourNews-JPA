@@ -38,14 +38,13 @@ import service.Fachada;
 
 public class TelaAssunto {
 	private JDialog frame;
-	private JTable table;
+	private JTable assuntoTable;
 	private JScrollPane scrollPane;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField nomeField;
 	private JButton button;
-	private JButton button_1;
+	private JButton adicionarAssuntoButton;
 	private JButton button_2;
-	private JLabel label;
+	private JLabel resultado;
 	private JLabel label_2;
 	private JLabel label_3;
 	private JLabel label_4;
@@ -104,30 +103,30 @@ public class TelaAssunto {
 		scrollPane.setBounds(21, 43, 674, 148);
 		frame.getContentPane().add(scrollPane);
 
-		table = new JTable();
-		table.addMouseListener(new MouseAdapter() {
+		assuntoTable = new JTable();
+		assuntoTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				label_4.setText("selecionado=" + (String) table.getValueAt(table.getSelectedRow(), 0));
+				label_4.setText("selecionado=" + (String) assuntoTable.getValueAt(assuntoTable.getSelectedRow(), 0));
 			}
 		});
-		table.setGridColor(Color.BLACK);
-		table.setRequestFocusEnabled(false);
-		table.setFocusable(false);
-		table.setBackground(Color.ORANGE);
-		table.setFillsViewportHeight(true);
-		table.setRowSelectionAllowed(true);
-		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		scrollPane.setViewportView(table);
-		table.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setShowGrid(true);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		assuntoTable.setGridColor(Color.BLACK);
+		assuntoTable.setRequestFocusEnabled(false);
+		assuntoTable.setFocusable(false);
+		assuntoTable.setBackground(Color.ORANGE);
+		assuntoTable.setFillsViewportHeight(true);
+		assuntoTable.setRowSelectionAllowed(true);
+		assuntoTable.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		scrollPane.setViewportView(assuntoTable);
+		assuntoTable.setBorder(new LineBorder(new Color(0, 0, 0)));
+		assuntoTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		assuntoTable.setShowGrid(true);
+		assuntoTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 
-		label = new JLabel(""); // label de mensagem
-		label.setForeground(Color.BLUE);
-		label.setBounds(21, 321, 688, 14);
-		frame.getContentPane().add(label);
+		resultado = new JLabel(""); // label de mensagem
+		resultado.setForeground(Color.BLUE);
+		resultado.setBounds(21, 321, 688, 14);
+		frame.getContentPane().add(resultado);
 
 		label_4 = new JLabel("resultados:");
 		label_4.setBounds(21, 190, 431, 14);
@@ -139,33 +138,26 @@ public class TelaAssunto {
 		// label_2.setBounds(21, 269, 71, 14);
 		// frame.getContentPane().add(label_2);
 
-		// textField = new JTextField();
-		// textField.setFont(new Font("Dialog", Font.PLAIN, 12));
-		// textField.setColumns(10);
-		// textField.setBounds(68, 264, 195, 20);
-		// frame.getContentPane().add(textField);
 
-		button_1 = new JButton("Criar novo assunto");
-		button_1.addActionListener(new ActionListener() {
+		adicionarAssuntoButton = new JButton("Criar novo assunto");
+		adicionarAssuntoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					// if (textField.getText().isEmpty() || textField_1.getText().isEmpty()) {
 					// 	label.setText("campo vazio");
 					// 	return;
 					// }
-					String cpf = textField.getText();
-					String nome = textField_1.getText();
+					String nome = nomeField.getText();
 					Fachada.adicionarAssunto(nome);
-					label.setText("Assuto criado: " + nome);
+					resultado.setText("Assuto criado: " + nome);
 					listagem();
 				} catch (Exception ex) {
-					label.setText(ex.getMessage());
+					resultado.setText(ex.getMessage());
 				}
 			}
 		});
-		button_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		button_1.setBounds(525, 265, 153, 23);
-		frame.getContentPane().add(button_1);
+		adicionarAssuntoButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		adicionarAssuntoButton.setBounds(525, 265, 153, 23);
+		frame.getContentPane().add(adicionarAssuntoButton);
 
 		button = new JButton("Listar");
 		button.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -183,26 +175,26 @@ public class TelaAssunto {
 		label_3.setBounds(281, 269, 63, 14);
 		frame.getContentPane().add(label_3);
 
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Dialog", Font.PLAIN, 12));
-		textField_1.setColumns(10);
-		textField_1.setBounds(336, 264, 168, 20);
-		frame.getContentPane().add(textField_1);
+		nomeField = new JTextField();
+		nomeField.setFont(new Font("Dialog", Font.PLAIN, 12));
+		nomeField.setColumns(10);
+		nomeField.setBounds(336, 264, 168, 20);
+		frame.getContentPane().add(nomeField);
 
 		button_2 = new JButton("Apagar selecionado");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (table.getSelectedRow() >= 0) {
-						label.setText("nao implementado ");
-						int id = (int) table.getValueAt(table.getSelectedRow(), 0);
+					if (assuntoTable.getSelectedRow() >= 0) {
+						resultado.setText("nao implementado ");
+						int id = (int) assuntoTable.getValueAt(assuntoTable.getSelectedRow(), 0);
 						Fachada.removerAssunto(id);
-						label.setText("assunto apagado");
+						resultado.setText("assunto apagado");
 						listagem();
 					} else
-						label.setText("nao selecionado");
+						resultado.setText("nao selecionado");
 				} catch (Exception ex) {
-					label.setText(ex.getMessage());
+					resultado.setText(ex.getMessage());
 				}
 			}
 		});
@@ -228,11 +220,11 @@ public class TelaAssunto {
 			}
 
 			// atualizar model no table (visualizacao)
-			table.setModel(model);
+			assuntoTable.setModel(model);
 
 			label_4.setText("resultados: " + lista.size() + " objetos");
 		} catch (Exception erro) {
-			label.setText(erro.getMessage());
+			resultado.setText(erro.getMessage());
 		}
 	}
 }

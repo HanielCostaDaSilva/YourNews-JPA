@@ -30,7 +30,7 @@ public class Util {
         config.common().objectClass(Assunto.class).cascadeOnActivate(true);
 
         // conexao local
-        manager = Db4oEmbedded.openFile(config, "banco.db4o");
+        manager = Db4oEmbedded.openFile(config, "./banco.db4o");
         return manager;
     }
 

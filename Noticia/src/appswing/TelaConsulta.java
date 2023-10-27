@@ -198,7 +198,7 @@ public class TelaConsulta {
 
 			//adicionar colunas no model
 			model.addColumn("ID");
-			model.addColumn("Nome");
+			model.addColumn("Assunto");
 			model.addColumn("Notícias");
 
 			//adicionar linhas no model
@@ -219,10 +219,10 @@ public class TelaConsulta {
 		try {
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("ID");
-		model.addColumn("Nome");
-		model.addColumn("Notícias");
+		model.addColumn("Titulo");
+		model.addColumn("Link");
 		for(Noticia not : lista) {
-				model.addRow(new Object[]{not.getId(), not.getTitulo(), not.getListaAssuntos()} );
+				model.addRow(new Object[]{not.getId(), not.getTitulo(), not.getLink()} );
 		}
 		table.setModel(model);
 		label_4.setText("resultados: "+lista.size()+ " objetos");

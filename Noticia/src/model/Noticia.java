@@ -23,8 +23,6 @@ public class Noticia {
 		this.link = link;
 	}
 
-	
-
 	public int getId() {
 		return id;
 	}
@@ -84,11 +82,19 @@ public class Noticia {
 
 	@Override
 	public String toString() {
-		String assuntosNomes = "";
-		for (Assunto n : this.listaAssuntos) {
-			assuntosNomes += n.getNome() + "\n";
-		}
+
 		return "id: " + id + ", titulo: " + titulo + ", Publicada: " + dataPublicacao + ", link: " + link
-				+ "\n Assuntos: \n" + assuntosNomes + "";
+				+ "\n Assuntos: \n" + this.assuntosNome() + "";
+	}
+
+	public String assuntosNome() {
+		String assuntosNomes = "";
+		int cont = 1;
+		if (this.listaAssuntos.size() > 0)
+			for (Assunto a : this.listaAssuntos) {
+				assuntosNomes += " Assunto " + cont + " "+a.getNome() + "|";
+				cont++;
+			}
+		return assuntosNomes;
 	}
 }

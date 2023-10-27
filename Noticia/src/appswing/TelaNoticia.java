@@ -36,8 +36,8 @@ public class TelaNoticia {
 	private JDialog frame;
 	private JTable noticiaTable;
 	private JScrollPane noticiaScrollPane;
-	private JTextField textField_2;
-	private JButton button;
+	private JTextField tituloInput;
+	private JButton listarButton;
 	private JButton button_1;
 	private JButton button_2;
 	private JLabel label;
@@ -46,8 +46,8 @@ public class TelaNoticia {
 	private JLabel label_4;
 	private JLabel label_data;
 	private JLabel label_link;
-	private JTextField textField_1;
-	private JTextField textField_3;
+	private JTextField linkInput;
+	private JTextField dataInput;
 	private JLabel label_1;
 	private JLabel label_5;
 
@@ -125,7 +125,7 @@ public class TelaNoticia {
 
 		label = new JLabel(""); // label de mensagem
 		label.setForeground(Color.BLUE);
-		label.setBounds(25, 299, 688, 14);
+		label.setBounds(21, 332, 688, 14);
 		frame.getContentPane().add(label);
 
 		label_4 = new JLabel("resultados:");
@@ -152,13 +152,16 @@ public class TelaNoticia {
 					// 	label.setText("campo vazio");
 					// 	return;
 					// }
-					String titulo = textField_2.getText();
-					String dataPublicacao = textField_3.getText();
-					String link = textField_2.getText();
+					String titulo = tituloInput.getText();
+					String dataPublicacao = dataInput.getText();
+					String link = linkInput.getText();
+					
 					Fachada.adicionarNoticia(titulo, dataPublicacao, link);
 					label.setText("Notícia criada: " + titulo);
 					listagem();
+
 				} catch (Exception ex) {
+					System.out.println(ex);
 					label.setText(ex.getMessage());
 				}
 			}
@@ -167,15 +170,15 @@ public class TelaNoticia {
 		button_1.setBounds(291, 270, 153, 23);
 		frame.getContentPane().add(button_1);
 
-		button = new JButton("Listar");
-		button.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		button.addActionListener(new ActionListener() {
+		listarButton = new JButton("Listar");
+		listarButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		listarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				listagem();
 			}
 		});
-		button.setBounds(308, 11, 89, 23);
-		frame.getContentPane().add(button);
+		listarButton.setBounds(308, 11, 89, 23);
+		frame.getContentPane().add(listarButton);
 
 		label_3 = new JLabel("Título:");
 		label_3.setHorizontalAlignment(SwingConstants.LEFT);
@@ -183,11 +186,11 @@ public class TelaNoticia {
 		label_3.setBounds(40, 247, 63, 14);
 		frame.getContentPane().add(label_3);
 
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Dialog", Font.PLAIN, 12));
-		textField_2.setColumns(10);
-		textField_2.setBounds(81, 244, 168, 20);
-		frame.getContentPane().add(textField_2);
+		tituloInput = new JTextField();
+		tituloInput.setFont(new Font("Dialog", Font.PLAIN, 12));
+		tituloInput.setColumns(10);
+		tituloInput.setBounds(81, 244, 168, 20);
+		frame.getContentPane().add(tituloInput);
 
 		button_2 = new JButton("Apagar selecionado");
 		button_2.addActionListener(new ActionListener() {
@@ -195,14 +198,16 @@ public class TelaNoticia {
 				try {
 					if (noticiaTable.getSelectedRow() >= 0) {
 						label.setText("nao implementado ");
-						int id = (int) noticiaTable.getValueAt(noticiaTable.getSelectedRow(), 0);
+						System.out.println(noticiaTable.getValueAt(noticiaTable.getSelectedRow(), 0).getClass());
+						String id = (String)noticiaTable.getValueAt(noticiaTable.getSelectedRow(), 0);
 
-						Fachada.removerNoticia(id);
+						Fachada.removerNoticia(Integer.parseInt(id));
 						label.setText("Notícia apagada");
 						listagem();
 					} else
 						label.setText("nao selecionada");
 				} catch (Exception ex) {
+					System.out.println(ex);
 					label.setText(ex.getMessage());
 				}
 			}
@@ -211,17 +216,17 @@ public class TelaNoticia {
 		button_2.setBounds(281, 213, 171, 23);
 		frame.getContentPane().add(button_2);
 		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Dialog", Font.PLAIN, 12));
-		textField_1.setColumns(10);
-		textField_1.setBounds(81, 272, 168, 20);
-		frame.getContentPane().add(textField_1);
+		linkInput = new JTextField();
+		linkInput.setFont(new Font("Dialog", Font.PLAIN, 12));
+		linkInput.setColumns(10);
+		linkInput.setBounds(81, 272, 168, 20);
+		frame.getContentPane().add(linkInput);
 		
-		textField_3 = new JTextField();
-		textField_3.setFont(new Font("Dialog", Font.PLAIN, 12));
-		textField_3.setColumns(10);
-		textField_3.setBounds(81, 303, 168, 20);
-		frame.getContentPane().add(textField_3);
+		dataInput = new JTextField();
+		dataInput.setFont(new Font("Dialog", Font.PLAIN, 12));
+		dataInput.setColumns(10);
+		dataInput.setBounds(81, 303, 168, 20);
+		frame.getContentPane().add(dataInput);
 		
 		label_1 = new JLabel("Link:");
 		label_1.setHorizontalAlignment(SwingConstants.LEFT);
@@ -247,10 +252,12 @@ public class TelaNoticia {
 			model.addColumn("ID");
 			model.addColumn("Título");
 			model.addColumn("Link");
+			model.addColumn("Publicação");
+			model.addColumn("Assuntos");
 
 			// adicionar linhas no model
 			for (Noticia not : lista) {
-				model.addRow(new Object[] { not.getId(), not.getTitulo(), not.getLink() });
+				model.addRow(new Object[] { Integer.toString(not.getId()), not.getTitulo(), not.getLink(), not.getDataPublicacao(), not.assuntosNome() });
 			}
 
 			// atualizar model no noticiaTable (visualizacao)
