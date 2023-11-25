@@ -1,0 +1,20 @@
+14:28:49,338  INFO Util:31 - Util.conectar - lendo arquivo util.properties: 
+14:28:49,342  INFO Util:38 - sgbd => postgresql
+14:28:49,343  INFO Util:39 - banco => agenda
+14:28:49,343  INFO Util:40 - ip => localhost
+14:28:49,343  INFO Util:45 - configurando postgresql
+14:28:49,372 DEBUG logging:38 - Logging Provider: org.jboss.logging.Log4jLoggerProvider
+14:28:49,529  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: hibernate-postgresql]
+14:28:49,608  INFO Version:44 - HHH000412: Hibernate ORM core version 6.3.1.Final
+14:28:49,652 DEBUG RegionFactoryInitiator:122 - Cannot default RegionFactory based on registered strategies as `[]` RegionFactory strategies were registered
+14:28:49,653  INFO RegionFactoryInitiator:50 - HHH000026: Second-level cache disabled
+14:28:49,890  WARN pooling:80 - HHH10001002: Using built-in connection pool (not intended for production use)
+14:28:49,896  INFO pooling:135 - HHH10001005: Loaded JDBC driver class: org.postgresql.Driver
+14:28:49,896  INFO pooling:157 - HHH10001012: Connecting with JDBC URL [jdbc:postgresql://localhost:5432/agenda]
+14:28:49,897  INFO pooling:166 - HHH10001001: Connection properties: {password=****, user=postgres}
+14:28:49,897  INFO pooling:170 - HHH10001003: Autocommit mode: false
+14:28:49,900  INFO pooling:366 - HHH10001115: Connection pool size: 20 (min=1)
+14:28:50,293  WARN deprecation:152 - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+14:28:51,347  INFO JtaPlatformInitiator:58 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+14:28:51,364  INFO access:52 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7dee835] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+14:28:51,781  INFO pooling:601 - HHH10001008: Cleaning up connection pool [jdbc:postgresql://localhost:5432/agenda]
