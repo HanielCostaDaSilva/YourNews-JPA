@@ -3,53 +3,90 @@
  * POB - Persistencia de Objetos
  * Prof. Fausto Ayres
  **********************************/
+
 package database;
 
 import java.util.List;
 
-import com.db4o.query.Query;
-
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import model.Noticia;
 
 public class DAONoticia extends DAO<Noticia> {
 
-	public Noticia read(Object key) {
-		int id = (int) key;
-		Query q = manager.query();
-		q.constrain(Noticia.class);
-		q.descend("id").constrain(id);
-		List<Noticia> resultados = q.execute();
-		if (resultados.size() > 0)
-			return resultados.get(0);
-		else
+	/**
+	 * Busca uma Noticia pelo título, convertendo-o para maiúsculas.
+	 *
+	 * @param chave Título da notícia a ser buscada.
+	 * @return A Noticia encontrada ou null se não encontrada.
+	 */
+	public Noticia read(Object chave) {
+		try {
+			String titulo = (String) chave;
+			titulo = titulo.toUpperCase();
+			TypedQuery<Noticia> q = manager.createQuery("select n from Noticia n where n.titulo=:t", Noticia.class);
+			q.setParameter("t", titulo);
+			return q.getSingleResult();
+
+		} catch (NoResultException e) {
 			return null;
+		}
 	}
 
-	// metodo da classe DAO sobrescrito DAONoticia para
-	// criar "id" sequencial
-	public void create(Noticia obj) {
-		int novoid = super.gerarId(); // gerar novo id da classe
-		obj.setId(novoid); // atualizar id do objeto antes de grava-lo no banco
-		manager.store(obj);
+	/**
+	 * Busca todas as Noticias com a lista de Assuntos associada.
+	 *
+	 * @return Lista de Noticias.
+	 */
+	public List<Noticia> readAll() {
+		TypedQuery<Noticia> q = manager.createQuery(
+				"select n from Noticia n LEFT JOIN FETCH n.listaAssuntos order by n.titulo", Noticia.class);
+		return q.getResultList();
 	}
 
 	// --------------------------------------------
-	// consultas de Noticia
+	// consultas
 	// --------------------------------------------
+	public List<Noticia> readAll(String caracteres) {
+		caracteres = caracteres.toUpperCase();
 
-	public List<Noticia> getNoticiasPorDataPublicacao(String dataBuscada) {
-		Query q = manager.query();
-		q.constrain(Noticia.class);
-
-		q.descend("dataPublicacao").constrain(dataBuscada);
-		return q.execute();
+		TypedQuery<Noticia> q = manager.createQuery(
+				"select n from Noticia n LEFT JOIN FETCH n.listaAssuntos where n.titulo like :x  order by n.titulo",
+				Noticia.class);
+		q.setParameter("x", "%" + caracteres + "%");
+		return q.getResultList();
 	}
 
-	public List<Noticia>  getNoticiasPorTitulo(String titulo) {
-		Query q = manager.query();
-		q.constrain(Noticia.class);
-		q.descend("titulo").constrain(titulo);
-		return q.execute();
+	public List<Noticia> readByNAssuntos(int n) {
+		TypedQuery<Noticia> q = manager.createQuery(
+				"select n from Noticia n JOIN FETCH n.listaAssuntos where SIZE(n.listaAssuntos) = :x", Noticia.class);
+		q.setParameter("x", n);
+		return q.getResultList();
+	}
+
+	public List<Noticia> getNoticiasPorDataPublicacao(String mes) {
+		TypedQuery<Noticia> q = manager.createQuery(
+				"select n from Noticia n JOIN FETCH n.listaAssuntos where substring(n.dataPublicacao,5,6) = :m",
+				Noticia.class);
+		q.setParameter("m", mes);
+		return q.getResultList();
+
+	}
+
+	public boolean temAssuntos(String nome) {
+		try {
+			nome = nome.toUpperCase();
+
+			Query q = manager.createQuery(
+					"select count(a) from Noticia N join n.listaAssuntos a where n.titulo = :x and a.id like :y");
+			q.setParameter("x", nome);
+			q.setParameter("y", "1%");
+			long cont = (Long) q.getSingleResult();
+			return cont > 0;
+		} catch (NoResultException e) {
+			return false;
+		}
 	}
 
 }

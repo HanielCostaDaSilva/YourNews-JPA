@@ -5,128 +5,57 @@
  **********************************/
 package database;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.db4o.query.Candidate;
-import com.db4o.query.Evaluation;
-import com.db4o.query.Query;
-
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
 import model.Assunto;
 import model.Noticia;
 
 public class DAOAssunto extends DAO<Assunto> {
 
-	public Assunto read(Object key) {
-		int id = (int) key;
-		Query q = manager.query();
-		q.constrain(Assunto.class);
-		q.descend("id").constrain(id);
-		List<Assunto> resultados = q.execute();
-		if (resultados.size() > 0)
-			return resultados.get(0);
-		else
-			return null;
-	}
-
-	// metodo da classe DAO sobrescrito DAOAssunto para
-	// criar "id" sequencial
-	public void create(Assunto obj) {
-		int novoid = super.gerarId(); // gerar novo id da classe
-		obj.setId(novoid); // atualizar id do objeto antes de grava-lo no banco
-		manager.store(obj);
-	}
-
-	// --------------------------------------------
-	// consultas de Assunto
-	// --------------------------------------------
-
-	/**
-	 * Retorna uma lista de notícias associadas a um assunto com base no ID do
-	 * assunto.
-	 * 
-	 * @param id O ID do assunto para o qual deseja recuperar as notícias.
-	 * @return Uma lista de notícias associadas ao assunto com o ID especificado.
-	 */
-	public List<Noticia> getnoticiasPorAssunto(String assunto) {
-		Query q = manager.query();
-		q.constrain(Assunto.class);
-		q.descend("nome").constrain(assunto);
-		List<Assunto> resultados = q.execute();
+	public Assunto read(Object chave) {
 		try {
-			Assunto a = ((Assunto) resultados.get(0));
-			return a.getListaNoticia(); // Se existir, retorne sua lista;
+			String id = (String) chave;
+			TypedQuery<Assunto> q = manager.createQuery("select a from Assunto a where a.nome = :n ", Assunto.class);
+			q.setParameter("n", id);
 
-		} catch (Exception e) {
-			System.out.println(e.toString());
+			return q.getSingleResult();
+		} catch (NoResultException e) {
 			return null;
 		}
-
 	}
 
-	/**
-	 * Retorna uma lista de assuntos que têm uma quantidade desejada de notícias.
-	 * 
-	 * @param quantidadeDesejada A quantidade desejada de notícias para filtrar os
-	 *                           assuntos.
-	 * @return Uma lista de assuntos com a quantidade desejada de notícias.
-	 */
-	public List<Assunto> getAssuntosPorQuantidadeNoticia(int quantidadeDesejada) {
-		Query q = manager.query();
-		q.constrain(Assunto.class);
-		q.constrain(new FiltroQuantidade(quantidadeDesejada));
-		List<Assunto> assuntos = q.execute();
-
-		return assuntos;
-
+	// sobrescrever o metodo readAll da classe DAO
+	public List<Assunto> readAll() {
+		TypedQuery<Assunto> q = manager.createQuery("select a from Assunto a LEFT JOIN FETCH a.nome order by a.nome",
+				Assunto.class);
+		return q.getResultList();
 	}
 
-	/**
-	 * Retorna uma lista de assuntos que têm uma quantidade desejada de notícias.
-	 * 
-	 * @return Uma lista de assuntos com a quantidade desejada de notícias.
-	 */
-	public List<Assunto> getAssuntosPorQuantidadeNoticia() {
-		Query q = manager.query();
-		q.constrain(Assunto.class);
-		q.constrain(new FiltroQuantidade());
-		List<Assunto> assuntos = q.execute();
+	// --------------------------------------------
+	// consultas
+	// --------------------------------------------
 
-		return assuntos;
-
+	public List<Assunto> readAll(String digitos) {
+		TypedQuery<Assunto> q = manager.createQuery(
+				"select a from Assunto a LEFT JOIN FETCH a.nome where a.nome like :x order by a.nome", Assunto.class);
+		q.setParameter("x", "%" + digitos + "%");
+		return q.getResultList();
 	}
 
-	/**
-	 * Classe utilizada para filtrar assuntos com base na quantidade de notícias
-	 * associadas.
-	 */
-	class FiltroQuantidade implements Evaluation {
-		private static final long serialVersionUID = 1L;
-
-		private int quantidade = 0;
-
-		FiltroQuantidade(int quantidade) {
-			this.quantidade = quantidade;
-		}
-
-		FiltroQuantidade() {
-			this.quantidade = 2;
-		}
-
-		public void evaluate(Candidate candidate) {
-			Assunto a = (Assunto) candidate.getObject();
-			if (a.getListaNoticia().size() > quantidade) {
-				candidate.include(true);
-			} else
-				candidate.include(false);
-		}
-
+	public List<Assunto> getAssuntosPorQuantidadeNoticia(int quantidade) {
+		TypedQuery<Assunto> q = manager.createQuery(
+				"select a from Assunto a where SIZE(a.listaNoticia) = :x", Assunto.class);
+		q.setParameter("x", quantidade);
+		return q.getResultList();
 	}
 
-	public List<Assunto> getAssuntosPorNome(String nome) {
-		Query q = manager.query();
-		q.constrain(Noticia.class);
-		q.descend("nome").constrain(nome);
-		return q.execute();
+	
+	public List<Noticia> getnoticiasPorAssunto(String assuntoNome) {
+		TypedQuery<Noticia> q = manager.createQuery(
+				"select a.listaNoticia from Assunto a where SIZE(a.listaNoticia) = :x", Noticia.class);
+		q.setParameter("x", assuntoNome);
+		return q.getResultList();
 	}
 }

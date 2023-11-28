@@ -4,25 +4,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 
 
 @Entity
 public class Noticia {
-	@Id;
-	@GeneratedValue(strategy=GenerationType.IDENTITY);
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+
+	//@Convert(converter=LowerToUpperConverter.class)
 	private String titulo;
+	
 	private String dataPublicacao;
+	
+	//@Convert(converter=LowerToUpperConverter.class)
 	private String link;
+	
+	@ManyToMany(
+		cascade={CascadeType.PERSIST, CascadeType.MERGE}, 
+		fetch= FetchType.LAZY)
+
 	private List<Assunto> listaAssuntos = new ArrayList<>();
 
+	public Noticia(){}
+	
 	public Noticia(String titulo, String dataPublicacao, String link) {
 		this.titulo = titulo;
 		this.dataPublicacao = dataPublicacao;
@@ -96,11 +107,11 @@ public class Noticia {
 	@Override
 	public String toString() {
 
-		return "id: " + id + ", titulo: " + titulo + ", Publicada: " + dataPublicacao + ", link: " + link
-				+ "\n Assuntos: \n" + this.assuntosNome() + "";
+		return "id: " + id + ", titulo: " + titulo + ", Publicada: " + dataPublicacao + ", link: " + link;
+//				+ "\n Assuntos: \n" + this.assuntosNome() + "";
 	}
 
-	public String assuntosNome() {
+/* 	public String assuntosNome() {
 		String assuntosNomes = "";
 		int cont = 1;
 		if (this.listaAssuntos.size() > 0)
@@ -109,5 +120,5 @@ public class Noticia {
 				cont++;
 			}
 		return assuntosNomes;
-	}
+	} */
 }

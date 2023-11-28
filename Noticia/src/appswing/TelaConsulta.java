@@ -30,7 +30,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.db4o.ObjectContainer;
 
 import model.Assunto;
 import model.Noticia;
@@ -44,7 +43,6 @@ public class TelaConsulta {
 	private JLabel label;
 	private JLabel label_4;
 
-	private ObjectContainer manager;
 	private JComboBox comboBox;
 
 	/**
@@ -137,17 +135,17 @@ public class TelaConsulta {
 					switch(index) {
 					case 0:
 					String data = JOptionPane.showInputDialog("Digite a data"); 
-						List<Noticia> resultado1 = Fachada.localizarNoticiasData(data);
+						List<Noticia> resultado1 = Fachada.pesqNoticiaByData(data);
 						listagemNoticias(resultado1);
 						break;
 					case 1: 
 						String quantidade = JOptionPane.showInputDialog("digite a quantidade");
-						List<Assunto> resultado2 = Fachada.localizarAssuntosPorQuantidadeNoticia(Integer.parseInt(quantidade));
+						List<Assunto> resultado2 = Fachada.pesqNoticiaByQuantNot(Integer.parseInt(quantidade));
 						listagemAssunto(resultado2);
 						break;
 					case 2:
 						String assunto = JOptionPane.showInputDialog("digite o assunto");
-						List<Noticia> resultado3 = Fachada.localizarNoticiasPorAssunto(assunto);
+						List<Noticia> resultado3 = Fachada.pesqNoticiaByAssunto(assunto);
 						listagemNoticias2(resultado3);
 					}
 

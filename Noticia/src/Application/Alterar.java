@@ -1,20 +1,16 @@
 package Application;
 
-import java.util.List;
-
-import com.db4o.ObjectContainer;
-import com.db4o.query.Query;
+import java.Fachada.List;
 
 import model.Assunto;
 import model.Noticia;
-import util.Util;
+import service.Fachada;
 
 public class Alterar {
-	protected ObjectContainer manager;
 
 	public Alterar() {
 		try {
-			manager = Util.conectarBanco();
+			Fachada.inicializar();
 
 			System.out.println("Alterando...");
 
@@ -44,14 +40,14 @@ public class Alterar {
 				manager.commit();
 			}
 
-			Util.desconectar();
-			System.out.println("Fim do programa.");
-
 		}
 
 		catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+
+		Fachada.finalizar();
+		System.out.println("Fim do programa.");
 	}
 
 	public static void main(String[] args) {

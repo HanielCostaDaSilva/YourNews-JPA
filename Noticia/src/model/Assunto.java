@@ -3,12 +3,29 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+
+@Entity
 public class Assunto {
-
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
+    
+    //@Convert(converter=LowerToUpperConverter.class)
     private String nome;
-    private List<Noticia> listaNoticia = new ArrayList<>();
 
+    @ManyToMany(
+        mappedBy="listaAssuntos",	
+        cascade={CascadeType.PERSIST, CascadeType.MERGE}, fetch= FetchType.LAZY) 							
+        private List<Noticia> listaNoticia = new ArrayList<>();
+
+    public Assunto(){}
     public Assunto(String nome) {
         this.nome = nome;
     }
@@ -52,11 +69,6 @@ public class Assunto {
 
     @Override
     public String toString() {
-        String titulosNoticias = "";
-        for (Noticia n : this.listaNoticia) {
-            titulosNoticias += n.getTitulo() + "\n";
-        }
-
-        return "id: " + id + " nome: " + nome + "\n titulos: \n" + titulosNoticias;
+        return "id: " + id + " nome: " + nome;
     }
 }

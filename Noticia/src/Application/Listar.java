@@ -2,32 +2,27 @@ package Application;
 
 import java.util.List;
 
-import com.db4o.ObjectContainer;
-import com.db4o.query.Query;
-
 import model.Assunto;
 import model.Noticia;
-import util.Util;
+import service.Fachada;
 
 public class Listar {
-	protected ObjectContainer manager;
 
 	public Listar() {
 		try {
-			manager = Util.conectarBanco();
 
 			System.out.println("Listagem de Assuntos:");
-			Query q = manager.query();
-			q.constrain(Assunto.class);
-			List<Assunto> resultados1 = q.execute();
+			Fachada.inicializar();
+
+			List<Assunto> resultados1 = Fachada.listarAssuntos();
 			for (Assunto a : resultados1) {
 				System.out.println(a);
 			}
 			System.out.println("==================");
 			System.out.println("Listagem de Notícias:");
-			q = manager.query();
-			q.constrain(Noticia.class);
-			List<Noticia> resultados2 = q.execute();
+
+			;
+			List<Noticia> resultados2 = Fachada.listarNoticias();
 			System.out.println("==================");
 			for (Noticia n : resultados2) {
 				System.out.println(n);
@@ -37,7 +32,7 @@ public class Listar {
 			System.out.println(e.getMessage());
 		}
 
-		Util.desconectar();
+		Fachada.finalizar();
 		System.out.println("Fim do programa");
 	}
 

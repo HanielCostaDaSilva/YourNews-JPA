@@ -29,7 +29,7 @@ public class Fachada {
     public static Noticia adicionarNoticia(String titulo, String dataPublicacao, String link) throws Exception {
         DAO.begin();
         
-        if (daoNoticia.getNoticiasPorTitulo(titulo).size() !=0)
+        if (daoNoticia.read(titulo) != null)
             throw new Exception("Noticia:" + titulo + "já cadastrado!");
 
         Noticia noticia = new Noticia(titulo, dataPublicacao, link);
@@ -38,12 +38,33 @@ public class Fachada {
         return noticia;
     }
 
+    public static Noticia adicionarNoticia(Noticia noticia) throws Exception {
+        DAO.begin();
+        
+        if (daoNoticia.read(noticia.getTitulo()) != null)
+            throw new Exception("Noticia:" + noticia.getTitulo() + "já cadastrado!");
+
+        daoNoticia.create(noticia);
+        DAO.commit();
+        return noticia;
+    }
     public static Assunto adicionarAssunto(String nome) throws Exception {
         DAO.begin();
-        if (daoNoticia.getNoticiasPorTitulo(nome).size() !=0)
-            throw new Exception("Assuntp:" + nome + "já cadastrado!");
+        if (daoNoticia.read(nome) != null)
+            throw new Exception("Assunto:" + nome + "já cadastrado!");
 
         Assunto assunto = new Assunto(nome);
+        daoAssunto.create(assunto);
+        DAO.commit();
+
+        return assunto;
+    }
+
+    public static Assunto adicionarAssunto(Assunto assunto) throws Exception {
+        DAO.begin();
+        if (daoNoticia.read(assunto.getNome()) != null)
+            throw new Exception("Assunto:" + assunto.getNome() + "já cadastrado!");
+
         daoAssunto.create(assunto);
         DAO.commit();
 
@@ -87,9 +108,9 @@ public class Fachada {
         return listaUsuario;
     }
 
-    public static Noticia removerNoticia(int id) throws Exception {
+    public static Noticia removerNoticia(String titulo) throws Exception {
         DAO.begin();
-        Noticia noticia = daoNoticia.read(id);
+        Noticia noticia = daoNoticia.read(titulo);
         if (noticia == null)
             throw new Exception("Noticia não encontrada!");
 
@@ -100,9 +121,9 @@ public class Fachada {
         return noticia;
     }
 
-    public static Assunto removerAssunto(int id) throws Exception {
+    public static Assunto removerAssunto(String nome) throws Exception {
         DAO.begin();
-        Assunto assunto = daoAssunto.read(id);
+        Assunto assunto = daoAssunto.read(nome);
         if (assunto == null)
             throw new Exception("Assunto não encontrado!");
         daoAssunto.delete(assunto);
@@ -230,7 +251,7 @@ public class Fachada {
      *         especificada.
      *         Se ocorrer algum erro durante a pesquisa.
      */
-    public static List<Noticia> localizarNoticiasData(String data) {
+    public static List<Noticia> pesqNoticiaByData(String data) {
 
         List<Noticia> noticiasPorData = daoNoticia.getNoticiasPorDataPublicacao(data);
         return noticiasPorData;
@@ -244,7 +265,7 @@ public class Fachada {
      * @return Uma lista de notícias associadas ao assunto com o ID especificado.
      *         Se ocorrer algum erro durante a pesquisa.
      */
-    public static List<Noticia> localizarNoticiasPorAssunto(String assunto) {
+    public static List<Noticia> pesqNoticiaByAssunto(String assunto) {
 
         List<Noticia> noticiasPorAssunto = daoAssunto.getnoticiasPorAssunto(assunto);
         return noticiasPorAssunto;
@@ -257,7 +278,7 @@ public class Fachada {
      * @return Uma lista de assuntos que têm pelo menos uma notícia associada.
      *         Se ocorrer algum erro durante a pesquisa.
      */
-    public static List<Assunto> localizarAssuntosPorQuantidadeNoticia() {
+    public static List<Assunto> pesqNoticiaByQuantNot() {
 
         List<Assunto> noticiasPorAssunto = daoAssunto.getAssuntosPorQuantidadeNoticia(1);
         return noticiasPorAssunto;
@@ -272,7 +293,7 @@ public class Fachada {
      * @return Uma lista de assuntos que atendem ao critério de quantidade
      *         denotícias. Se ocorrer algum erro durante a pesquisa.
      */
-    public static List<Assunto> localizarAssuntosPorQuantidadeNoticia(int quantidade) {
+    public static List<Assunto> pesqNoticiaByQuantNot(int quantidade) {
 
         List<Assunto> noticiasPorAssunto = daoAssunto.getAssuntosPorQuantidadeNoticia(quantidade);
         return noticiasPorAssunto;

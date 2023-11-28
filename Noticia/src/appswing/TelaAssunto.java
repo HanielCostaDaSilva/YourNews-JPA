@@ -21,7 +21,6 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -30,10 +29,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.db4o.ObjectContainer;
 
 import model.Assunto;
-import model.Noticia;
 import service.Fachada;
 
 public class TelaAssunto {
@@ -45,11 +42,8 @@ public class TelaAssunto {
 	private JButton adicionarAssuntoButton;
 	private JButton button_2;
 	private JLabel resultado;
-	private JLabel label_2;
 	private JLabel label_3;
 	private JLabel label_4;
-
-	private JButton button_3;
 
 	/**
 	 * Launch the application.
@@ -187,8 +181,20 @@ public class TelaAssunto {
 				try {
 					if (assuntoTable.getSelectedRow() >= 0) {
 						resultado.setText("nao implementado ");
-						int id = (int) assuntoTable.getValueAt(assuntoTable.getSelectedRow(), 0);
-						Fachada.removerAssunto(id);
+						
+						////////////////////////////////////////////
+						////////////////////////////////////////////
+						////////////////////////////////////////////
+						////////////////////////////////////////////
+						// CHECAR SE FUNCIONA MESMO assuntoNome ///
+						String assuntoNome = (String) assuntoTable.getValueAt(assuntoTable.getSelectedRow(), 1);
+						
+						////////////////////////////////////////////
+						////////////////////////////////////////////
+						////////////////////////////////////////////
+						////////////////////////////////////////////
+						// CHECAR SE FUNCIONA MESMO assuntoNome ///
+						Fachada.removerAssunto(assuntoNome);
 						resultado.setText("assunto apagado");
 						listagem();
 					} else

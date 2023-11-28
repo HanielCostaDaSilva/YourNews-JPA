@@ -4,8 +4,7 @@
  * Prof. Fausto Ayres
  *
  */
-package DAO_JPA;
-
+package database;
 
 
 import java.util.Properties;
