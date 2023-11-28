@@ -19,7 +19,7 @@ public class Assunto {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     
-    @Convert(converter=LowerToUpperConverter.class)
+    //@Convert(converter=LowerToUpperConverter.class)
     private String nome;
 
     @ManyToMany(
@@ -71,11 +71,6 @@ public class Assunto {
 
     @Override
     public String toString() {
-        String titulosNoticias = "";
-        for (Noticia n : this.listaNoticia) {
-            titulosNoticias += n.getTitulo() + "\n";
-        }
-
-        return "id: " + id + " nome: " + nome + "\n titulos: \n" + titulosNoticias;
+        return "id: " + id + " nome: " + nome;
     }
 }

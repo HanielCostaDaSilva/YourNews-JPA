@@ -16,7 +16,7 @@ class Cadastrar {
       System.out.println("cadastrando...");
 
       Assunto a1 = new Assunto(1, "esportes");
-
+    
       manager.store(a1);
       manager.commit();
 

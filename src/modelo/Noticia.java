@@ -20,7 +20,7 @@ public class Noticia {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	@Convert(converter=LowerToUpperConverter.class)
+	//@Convert(converter=LowerToUpperConverter.class)
 	private String titulo;
 	
 	private String dataPublicacao;
@@ -109,11 +109,11 @@ public class Noticia {
 	@Override
 	public String toString() {
 
-		return "id: " + id + ", titulo: " + titulo + ", Publicada: " + dataPublicacao + ", link: " + link
-				+ "\n Assuntos: \n" + this.assuntosNome() + "";
+		return "id: " + id + ", titulo: " + titulo + ", Publicada: " + dataPublicacao + ", link: " + link;
+//				+ "\n Assuntos: \n" + this.assuntosNome() + "";
 	}
 
-	public String assuntosNome() {
+/* 	public String assuntosNome() {
 		String assuntosNomes = "";
 		int cont = 1;
 		if (this.listaAssuntos.size() > 0)
@@ -122,5 +122,5 @@ public class Noticia {
 				cont++;
 			}
 		return assuntosNomes;
-	}
+	} */
 }
