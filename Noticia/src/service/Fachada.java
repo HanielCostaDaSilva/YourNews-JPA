@@ -110,11 +110,9 @@ public class Fachada {
 
     public static Noticia removerNoticia(String titulo) throws Exception {
         DAO.begin();
-        Noticia noticia = daoNoticia.read(titulo);
+        Noticia noticia = daoNoticia.readByTitle(titulo);
         if (noticia == null)
             throw new Exception("Noticia não encontrada!");
-
-        // if (noticia.)
 
         daoNoticia.delete(noticia);
         DAO.commit();

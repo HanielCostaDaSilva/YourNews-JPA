@@ -25,10 +25,23 @@ public class DAOAssunto extends DAO<Assunto> {
 			return null;
 		}
 	}
+	
+	public Assunto read(int chave) {
+		try {
+		
+			TypedQuery<Assunto> q = manager.createQuery("select a from Assunto a where a.id=:a", Assunto.class);
+			q.setParameter("a", chave);
+			return q.getSingleResult();
+
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
 
 	// sobrescrever o metodo readAll da classe DAO
 	public List<Assunto> readAll() {
-		TypedQuery<Assunto> q = manager.createQuery("select a from Assunto a LEFT JOIN FETCH a.nome order by a.nome",
+		TypedQuery<Assunto> q = manager.createQuery("select a from Assunto a order by a.nome",
 				Assunto.class);
 		return q.getResultList();
 	}

@@ -21,12 +21,26 @@ public class DAONoticia extends DAO<Noticia> {
 	 * @param chave Título da notícia a ser buscada.
 	 * @return A Noticia encontrada ou null se não encontrada.
 	 */
+	public Noticia readByTitle(String title) {
+		try {
+			String titulo = (String) title;
+			//titulo = titulo.toUpperCase();
+			
+			TypedQuery<Noticia> q = manager.createQuery("SELECT n FROM Noticia n WHERE n.titulo LIKE :t", Noticia.class);
+			
+			q.setParameter("t", "%"+ titulo + "%");
+			return q.getSingleResult();
+
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
 	public Noticia read(Object chave) {
 		try {
-			String titulo = (String) chave;
-			titulo = titulo.toUpperCase();
-			TypedQuery<Noticia> q = manager.createQuery("select n from Noticia n where n.titulo=:t", Noticia.class);
-			q.setParameter("t", titulo);
+		
+			TypedQuery<Noticia> q = manager.createQuery("select n from Noticia n where n.id=:t", Noticia.class);
+			q.setParameter("t", chave);
 			return q.getSingleResult();
 
 		} catch (NoResultException e) {

@@ -1,6 +1,5 @@
 package Application;
 
-import java.Fachada.List;
 
 import model.Assunto;
 import model.Noticia;

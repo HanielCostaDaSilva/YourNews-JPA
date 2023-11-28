@@ -28,7 +28,7 @@ public class Util {
 				// ler dados do arquivo dados.properties
 				Properties dados = new Properties();
 				logger.info("Util.conectar - lendo arquivo util.properties: ");
-				dados.load(DAO.class.getResourceAsStream("/daojpa/util.properties")); // dentro de src
+				dados.load(DAO.class.getResourceAsStream("/database/util.properties")); // dentro de src
 
 				String sgbd = dados.getProperty("sgbd");
 				String banco = dados.getProperty("banco");
