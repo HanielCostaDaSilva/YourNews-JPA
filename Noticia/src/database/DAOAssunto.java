@@ -50,13 +50,6 @@ public class DAOAssunto extends DAO<Assunto> {
 	// consultas
 	// --------------------------------------------
 
-	public List<Assunto> readAll(String digitos) {
-		TypedQuery<Assunto> q = manager.createQuery(
-				"select a from Assunto a LEFT JOIN FETCH a.nome where a.nome like :x order by a.nome", Assunto.class);
-		q.setParameter("x", "%" + digitos + "%");
-		return q.getResultList();
-	}
-
 	public List<Assunto> getAssuntosPorQuantidadeNoticia(int quantidade) {
 		TypedQuery<Assunto> q = manager.createQuery(
 				"select a from Assunto a where SIZE(a.listaNoticia) = :x", Assunto.class);
@@ -67,8 +60,8 @@ public class DAOAssunto extends DAO<Assunto> {
 	
 	public List<Noticia> getnoticiasPorAssunto(String assuntoNome) {
 		TypedQuery<Noticia> q = manager.createQuery(
-				"select a.listaNoticia from Assunto a where SIZE(a.listaNoticia) = :x", Noticia.class);
-		q.setParameter("x", assuntoNome);
+				"select a.listaNoticia from Assunto a where a.nome like :x", Noticia.class);
+				q.setParameter("x", "%" + assuntoNome + "%");
 		return q.getResultList();
 	}
 }

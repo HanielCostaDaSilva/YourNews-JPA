@@ -20,10 +20,10 @@ public class Consultar {
 		Fachada.inicializar();
 		
 		System.out.println("==================");
-		System.out.println("Exibindo notícias da data 2023-07-20");
+		System.out.println("Exibindo notícias do mês -07-");
 		System.out.println("==================");
 		/* quais as noticias publicados na data X */
-		List<Noticia> q1Resultado = Fachada.pesqNoticiaByData("2023-07-20");
+		List<Noticia> q1Resultado = Fachada.pesqNoticiaByData("07");
 		for (Noticia n : q1Resultado) {
 			System.out.println(n);
 		}
@@ -39,34 +39,27 @@ public class Consultar {
 		}
 
 		System.out.println("==================");
-		System.out.println("Exibindo os assuntos que tem mais de 1 noticias");
+		System.out.println("Exibindo os assuntos que tem mais de 2 noticias");
 		System.out.println("==================");
 
 		/* quais os assuntos que tem mais de 1 noticias */
 
-		List<Assunto> q3Resultado =Fachada.pesqNoticiaByQuantNot(1);
+		List<Assunto> q3Resultado =Fachada.pesqNoticiaByQuantNot(2);
 
 		for (Assunto a : q3Resultado) {
 			System.out.println(a);
 		}
+
+		System.out.println("==================");
+
 		System.out.println("Fim das consultas");
+
+		System.out.println("==================");
 
 		Fachada.finalizar();
 	}
 
-	/* class Filtro implements Evaluation {
-		private static final long serialVersionUID = 1L;
 
-		public void evaluate(Candidate candidate) {
-			Assunto a = (Assunto) candidate.getObject();
-			if (a.getListaNoticia().size() > 1) {
-				candidate.include(true);
-			} else
-				candidate.include(false);
-		}
-
-	}
- */
 	public static void main(String[] args) {
 		new Consultar();
 	}

@@ -1,5 +1,5 @@
 /**********************************
- * IFPB - Curso Superior de Tec. em Sist. para Internet
+  * IFPB - Curso Superior de Tec. em Sist. para Internet
  * POB - Persistencia de Objetos
  * Prof. Fausto Ayres
  *
@@ -41,11 +41,8 @@ public class TelaNoticia {
 	private JButton button_1;
 	private JButton button_2;
 	private JLabel label;
-	private JLabel label_2;
 	private JLabel label_3;
 	private JLabel label_4;
-	private JLabel label_data;
-	private JLabel label_link;
 	private JTextField linkInput;
 	private JTextField dataInput;
 	private JLabel label_1;
@@ -58,7 +55,7 @@ public class TelaNoticia {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaNoticia tela = new TelaNoticia();
+					new TelaNoticia();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -201,7 +198,7 @@ public class TelaNoticia {
 						System.out.println(noticiaTable.getValueAt(noticiaTable.getSelectedRow(), 0).getClass());
 						String id = (String)noticiaTable.getValueAt(noticiaTable.getSelectedRow(), 0);
 
-						Fachada.removerNoticia(Integer.parseInt(id));
+						Fachada.removerNoticia(id);
 						label.setText("Notícia apagada");
 						listagem();
 					} else
@@ -257,7 +254,7 @@ public class TelaNoticia {
 
 			// adicionar linhas no model
 			for (Noticia not : lista) {
-				model.addRow(new Object[] { Integer.toString(not.getId()), not.getTitulo(), not.getLink(), not.getDataPublicacao(), not.assuntosNome() });
+				model.addRow(new Object[] { Integer.toString(not.getId()), not.getTitulo(), not.getLink(), not.getDataPublicacao()});
 			}
 
 			// atualizar model no noticiaTable (visualizacao)

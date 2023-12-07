@@ -56,6 +56,7 @@ public class DAONoticia extends DAO<Noticia> {
 	public List<Noticia> readAll() {
 		TypedQuery<Noticia> q = manager.createQuery(
 				"select n from Noticia n LEFT JOIN FETCH n.listaAssuntos order by n.titulo", Noticia.class);
+	
 		return q.getResultList();
 	}
 
@@ -79,13 +80,11 @@ public class DAONoticia extends DAO<Noticia> {
 		return q.getResultList();
 	}
 
-	public List<Noticia> getNoticiasPorDataPublicacao(String mes) {
-		TypedQuery<Noticia> q = manager.createQuery(
-				"select n from Noticia n JOIN FETCH n.listaAssuntos where substring(n.dataPublicacao,5,6) = :m",
-				Noticia.class);
-		q.setParameter("m", mes);
-		return q.getResultList();
-
+	public List<Noticia> getNoticiasPorDataPublicacao(String data) {
+	    TypedQuery<Noticia> q = manager.createQuery(
+	            "SELECT n FROM Noticia n WHERE n.dataPublicacao LIKE :data", Noticia.class);
+	    q.setParameter("data", "%" + data + "%");
+	    return q.getResultList();
 	}
 
 	public boolean temAssuntos(String nome) {

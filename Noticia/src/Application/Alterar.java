@@ -1,55 +1,61 @@
 package Application;
 
-
 import model.Assunto;
 import model.Noticia;
 import service.Fachada;
 
 public class Alterar {
 
-	public Alterar() {
+	public static void main(String[] args) {
 		try {
 			Fachada.inicializar();
 
 			System.out.println("Alterando...");
 
-			// consultar notícia
-			Query q1 = manager.query();
-			q1.constrain(Noticia.class);
+			// Atualizando nóticia com id 6
+			// colocando título "Edu Camaargo ensina a programar em PhP"
 
-			q1.descend("id").constrain(2);
+			Noticia not = Fachada.localizarNoticia(6);
 
-			List<Noticia> resultados1 = q1.execute();
+			System.out.println("===================================================");
+			System.out.println("Atualizando Noticia: \n" + not.getTitulo() );
+			System.out.println("===================================================");
 
-			// consultar assunto
-			Query q2 = manager.query();
+			Fachada.atualizarNoticia(6, "Edu Camargo ensina a programar em PHP", "", "");
 
-			q2.constrain(Assunto.class);
-			q2.descend("id").constrain(6);
+			System.out.println("Noticia: \n" + not.getTitulo() + "\natualizada");
 
-			List<Assunto> resultados2 = q2.execute();
+			// Associando Noticia com id 5 ao assunto com id 6
+			System.out.println("===================================================");
 
-			if (resultados1.size() > 0 && resultados2.size() > 0) {
-				Noticia noticia = resultados1.get(0);
-				Assunto assunto = resultados2.get(0);
+			not = Fachada.localizarNoticia(2);
+			Assunto ass = Fachada.localizarAssunto(1);
 
-				noticia.adicionar(assunto);
-				assunto.adicionar(noticia);
-				manager.store(assunto);
-				manager.commit();
-			}
+			System.out.println(
+					"Associando Noticia: " + not.getTitulo() + "\nAo Assunto: " + ass.getNome());
 
-		}
+			System.out.println("===================================================");
 
-		catch (Exception e) {
+			Fachada.associarAssuntoNoticia(2, 1);
+
+			// Desassociar Noticia com id 5 do assunto com id 6
+			System.out.println("===================================================");
+
+			not = Fachada.localizarNoticia(6);
+			ass = Fachada.localizarAssunto(5);
+
+			System.out.println(
+					"Desassociando Noticia: " + not.getTitulo() + "\ndo Assunto: " + ass.getNome());
+
+			Fachada.desassociarNoticiaAssunto(6, 5);
+
+			System.out.println("===================================================");
+
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 
 		Fachada.finalizar();
 		System.out.println("Fim do programa.");
-	}
-
-	public static void main(String[] args) {
-		new Alterar();
 	}
 }

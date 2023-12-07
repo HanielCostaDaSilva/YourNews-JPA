@@ -24,12 +24,23 @@ class Cadastrar {
       Assunto a5 = new Assunto( "tecnologia");
       
       Assunto a6 = new Assunto( "trabalho");
-      Fachada.adicionarAssunto(a1);
-      Fachada.adicionarAssunto(a2);
-      Fachada.adicionarAssunto(a3);
-      Fachada.adicionarAssunto(a4);
-      Fachada.adicionarAssunto(a5);
-      Fachada.adicionarAssunto(a6);
+      try{
+        Fachada.adicionarAssunto(a1);
+
+        Fachada.adicionarAssunto(a2);
+  
+        Fachada.adicionarAssunto(a3);
+  
+        Fachada.adicionarAssunto(a4);
+  
+        Fachada.adicionarAssunto(a5);
+  
+        Fachada.adicionarAssunto(a6);
+  
+      }
+      catch(Exception e){
+        System.out.println("Assuntos já cadastrados");
+      }
 
       Noticia n1 = new Noticia(
           "final emocionante: Botafogo derrota Flamengo nas quartas de finais", "2023-08-24",
@@ -37,14 +48,14 @@ class Cadastrar {
 
       Fachada.adicionarNoticia(n1);
       
-      Fachada.associarAssuntoNoticia(n1.getId(),a1.getId());
+      Fachada.associarAssuntoNoticia(1,1);
 
       Noticia n2 = new Noticia(
         "bomba! Jojô Toddynho reata namoro com o ex. Veja o seu desabafo!", "2023-08-23",
         "https://exemplo.com/noticia2");
         
       Fachada.adicionarNoticia(n2);
-      Fachada.associarAssuntoNoticia(n2.getId(),a2.getId());
+      Fachada.associarAssuntoNoticia(2,2);
 
         
         
@@ -54,8 +65,8 @@ class Cadastrar {
           
       Fachada.adicionarNoticia(n3);
       
-      Fachada.associarAssuntoNoticia(n3.getId(),a5.getId());
-      Fachada.associarAssuntoNoticia(n3.getId(),a6.getId());
+      Fachada.associarAssuntoNoticia(3,5);
+      Fachada.associarAssuntoNoticia(3,6);
 
           
           Noticia n4 = new Noticia(
@@ -64,8 +75,8 @@ class Cadastrar {
 
       Fachada.adicionarNoticia(n4);
 
-      Fachada.associarAssuntoNoticia(n4.getId(),a3.getId());
-      Fachada.associarAssuntoNoticia(n4.getId(),a6.getId());
+      Fachada.associarAssuntoNoticia(4,3);
+      Fachada.associarAssuntoNoticia(4,6);
       
       
       Noticia n5 = new Noticia(
@@ -73,7 +84,7 @@ class Cadastrar {
         "https://exemplo.com/noticia5");
         
       Fachada.adicionarNoticia(n5);
-      Fachada.associarAssuntoNoticia(n5.getId(),a4.getId());
+      Fachada.associarAssuntoNoticia(5,4);
         
         Noticia n6 = new Noticia(
           "edu camargo ensina a fazer uma página Web Top.", "2023-08-20",
@@ -81,9 +92,9 @@ class Cadastrar {
           
       Fachada.adicionarNoticia(n6);
       
-      Fachada.associarAssuntoNoticia(n6.getId(),a2.getId());
-      Fachada.associarAssuntoNoticia(n6.getId(),a4.getId());
-      Fachada.associarAssuntoNoticia(n6.getId(),a5.getId());
+      Fachada.associarAssuntoNoticia(6,2);
+      Fachada.associarAssuntoNoticia(6,4);
+      Fachada.associarAssuntoNoticia(6,5);
 
 
 
@@ -92,10 +103,7 @@ class Cadastrar {
           "https://exemplo.com/noticia7");
 
       Fachada.adicionarNoticia(n7);
-      Fachada.associarAssuntoNoticia(n7.getId(),a4.getId());
-      
-      n7.adicionar(a4);
-      a4.adicionar(n7);
+      Fachada.associarAssuntoNoticia(7,4);
       
       Noticia n8 = new Noticia(
           "graças ao governo, 17% dos paraíbanos estão desempregados", "2023-07-20",
@@ -103,14 +111,8 @@ class Cadastrar {
 
       Fachada.adicionarNoticia(n8);
       
-      n8.adicionar(a3);
-      a3.adicionar(n8);
-
-      n8.adicionar(a6);
-      a6.adicionar(n8);
-
-      Fachada.associarAssuntoNoticia(n8.getId(),a3.getId());
-      Fachada.associarAssuntoNoticia(n8.getId(),a6.getId());
+      Fachada.associarAssuntoNoticia(8,3);
+      Fachada.associarAssuntoNoticia(8,6);
       
       System.out.println("Deu tudo certo mané!");
     } catch (Exception e) {
