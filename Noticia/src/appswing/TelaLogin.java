@@ -103,16 +103,11 @@ public class TelaLogin {
 			public void actionPerformed(ActionEvent e) {
 				String nome = textField.getText();
 				String senha = textField_1.getText();
-
-				Usuario usu = Fachada.localizarUsuario(nome,senha);
-
-				if(usu!=null) {
-					Fachada.logado = usu;
-					TelaPrincipal tela = new TelaPrincipal();
-					frame.dispose();
-				}
-				else {
-					label_2.setText("Usuario ou senha incorreto");
+				
+ 
+				Fachada.logado = new Usuario(nome, senha); // Crie um usuário temporário
+		        TelaPrincipal tela = new TelaPrincipal();
+		        frame.dispose();
 
 					JFrame dialogFrame = new JFrame("Erro de Login");
 					dialogFrame.setBounds(100, 100, 400, 450);
@@ -126,8 +121,7 @@ public class TelaLogin {
 					okButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							try {
-								Fachada.adicionarUsuario(nome, senha);
-								Fachada.logado = usu;								
+								Fachada.adicionarUsuario(nome, senha);							
 							} catch (Exception e1) {
 								e1.printStackTrace();
 							}
@@ -139,7 +133,6 @@ public class TelaLogin {
 
 					dialogFrame.setLayout(null);
 					dialogFrame.setVisible(true);
-				}
 			}
 		});
 		button.setBounds(69, 96, 89, 23);

@@ -50,7 +50,8 @@ public class TelaPrincipal {
 	 */
 	public TelaPrincipal() {
 		initialize();
-		frame.setTitle("Noticias - usuario: "+ Fachada.logado.getNickname());
+//		frame.setTitle("Noticias - usuario: "+ Fachada.logado.getNickname());
+		frame.setTitle("Noticias - usuario: "+ "Convidado");
 		frame.setVisible(true);
 	}
 
