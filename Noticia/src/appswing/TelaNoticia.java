@@ -28,6 +28,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import model.Noticia;
 import service.Fachada;
@@ -76,11 +77,11 @@ public class TelaNoticia {
 	 */
 	private void initialize() {
 		frame = new JDialog();
-		frame.setModal(true);
+		//frame.setModal(true);
 
 		frame.setResizable(false);
 		frame.setTitle("Notícia");
-		frame.setBounds(100, 100, 729, 385);
+		frame.setBounds(100, 100, 898, 456);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.addWindowListener(new WindowAdapter() {
@@ -97,7 +98,7 @@ public class TelaNoticia {
 		});
 
 		noticiaScrollPane = new JScrollPane();
-		noticiaScrollPane.setBounds(21, 43, 674, 148);
+		noticiaScrollPane.setBounds(10, 43, 872, 158);
 		frame.getContentPane().add(noticiaScrollPane);
 
 		noticiaTable = new JTable();
@@ -110,7 +111,7 @@ public class TelaNoticia {
 		noticiaTable.setGridColor(Color.BLACK);
 		noticiaTable.setRequestFocusEnabled(false);
 		noticiaTable.setFocusable(false);
-		noticiaTable.setBackground(Color.YELLOW);
+		noticiaTable.setBackground(Color.LIGHT_GRAY);
 		noticiaTable.setFillsViewportHeight(true);
 		noticiaTable.setRowSelectionAllowed(true);
 		noticiaTable.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -122,11 +123,11 @@ public class TelaNoticia {
 
 		label = new JLabel(""); // label de mensagem
 		label.setForeground(Color.BLUE);
-		label.setBounds(21, 332, 688, 14);
+		label.setBounds(28, 392, 688, 14);
 		frame.getContentPane().add(label);
 
 		label_4 = new JLabel("resultados:");
-		label_4.setBounds(21, 190, 431, 14);
+		label_4.setBounds(21, 212, 431, 14);
 		frame.getContentPane().add(label_4);
 
 		// label_2 = new JLabel("ID:");
@@ -146,13 +147,13 @@ public class TelaNoticia {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					// if (textField.getText().isEmpty()) {
-					// 	label.setText("campo vazio");
-					// 	return;
+					// label.setText("campo vazio");
+					// return;
 					// }
 					String titulo = tituloInput.getText();
 					String dataPublicacao = dataInput.getText();
 					String link = linkInput.getText();
-					
+
 					Fachada.adicionarNoticia(titulo, dataPublicacao, link);
 					label.setText("Notícia criada: " + titulo);
 					listagem();
@@ -164,7 +165,7 @@ public class TelaNoticia {
 			}
 		});
 		button_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		button_1.setBounds(291, 270, 153, 23);
+		button_1.setBounds(439, 257, 173, 52);
 		frame.getContentPane().add(button_1);
 
 		listarButton = new JButton("Listar");
@@ -174,19 +175,19 @@ public class TelaNoticia {
 				listagem();
 			}
 		});
-		listarButton.setBounds(308, 11, 89, 23);
+		listarButton.setBounds(10, 11, 872, 32);
 		frame.getContentPane().add(listarButton);
 
 		label_3 = new JLabel("Título:");
 		label_3.setHorizontalAlignment(SwingConstants.LEFT);
 		label_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_3.setBounds(40, 247, 63, 14);
+		label_3.setBounds(28, 270, 63, 14);
 		frame.getContentPane().add(label_3);
 
 		tituloInput = new JTextField();
 		tituloInput.setFont(new Font("Dialog", Font.PLAIN, 12));
 		tituloInput.setColumns(10);
-		tituloInput.setBounds(81, 244, 168, 20);
+		tituloInput.setBounds(81, 261, 291, 32);
 		frame.getContentPane().add(tituloInput);
 
 		button_2 = new JButton("Apagar selecionado");
@@ -195,8 +196,8 @@ public class TelaNoticia {
 				try {
 					if (noticiaTable.getSelectedRow() >= 0) {
 						label.setText("nao implementado ");
-						System.out.println(noticiaTable.getValueAt(noticiaTable.getSelectedRow(), 0).getClass());
-						String id = (String)noticiaTable.getValueAt(noticiaTable.getSelectedRow(), 0);
+						//System.out.println(noticiaTable.getValueAt(noticiaTable.getSelectedRow(), 0).getClass());
+						String id = (String) noticiaTable.getValueAt(noticiaTable.getSelectedRow(), 0);
 
 						Fachada.removerNoticia(id);
 						label.setText("Notícia apagada");
@@ -210,31 +211,31 @@ public class TelaNoticia {
 			}
 		});
 		button_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		button_2.setBounds(281, 213, 171, 23);
+		button_2.setBounds(650, 257, 192, 52);
 		frame.getContentPane().add(button_2);
-		
+
 		linkInput = new JTextField();
 		linkInput.setFont(new Font("Dialog", Font.PLAIN, 12));
 		linkInput.setColumns(10);
-		linkInput.setBounds(81, 272, 168, 20);
+		linkInput.setBounds(81, 304, 291, 32);
 		frame.getContentPane().add(linkInput);
-		
+
 		dataInput = new JTextField();
 		dataInput.setFont(new Font("Dialog", Font.PLAIN, 12));
 		dataInput.setColumns(10);
-		dataInput.setBounds(81, 303, 168, 20);
+		dataInput.setBounds(81, 347, 247, 34);
 		frame.getContentPane().add(dataInput);
-		
+
 		label_1 = new JLabel("Link:");
 		label_1.setHorizontalAlignment(SwingConstants.LEFT);
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_1.setBounds(40, 274, 63, 14);
+		label_1.setBounds(28, 313, 63, 14);
 		frame.getContentPane().add(label_1);
-		
+
 		label_5 = new JLabel("Data:");
 		label_5.setHorizontalAlignment(SwingConstants.LEFT);
 		label_5.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_5.setBounds(40, 307, 63, 14);
+		label_5.setBounds(21, 357, 63, 14);
 		frame.getContentPane().add(label_5);
 	}
 
@@ -254,15 +255,41 @@ public class TelaNoticia {
 
 			// adicionar linhas no model
 			for (Noticia not : lista) {
-				model.addRow(new Object[] { Integer.toString(not.getId()), not.getTitulo(), not.getLink(), not.getDataPublicacao()});
+				model.addRow(new Object[] {
+						Integer.toString(not.getId()),
+						not.getTitulo(),
+						not.getLink(),
+						not.getDataPublicacao(),
+						not.getAssuntosNome()
+				});
 			}
 
 			// atualizar model no noticiaTable (visualizacao)
 			noticiaTable.setModel(model);
 
+			// Definir tamanhos fixos para as colunas
+			TableColumn column;
+			for (int i = 0; i < noticiaTable.getColumnCount(); i++) {
+				column = noticiaTable.getColumnModel().getColumn(i);
+				if (i == 0) {
+					column.setPreferredWidth(30); // Tamanho desejado para a coluna ID
+				} else if( i==1) {
+					column.setPreferredWidth(350); // Tamanho desejado para as outras colunas
+				}else if( i==2) {
+					column.setPreferredWidth(250); // Tamanho desejado para as outras colunas
+				}
+				else if( i==4) {
+					column.setPreferredWidth(350); // Tamanho desejado para as outras colunas
+				}
+				 else {
+					column.setPreferredWidth(150); // Tamanho desejado para as outras colunas
+				}
+			}
+
 			label_4.setText("resultados: " + lista.size() + " objetos");
 		} catch (Exception erro) {
 			label.setText(erro.getMessage());
 		}
+
 	}
 }

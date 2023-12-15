@@ -22,10 +22,11 @@ public class Assunto {
 
     @ManyToMany(
         mappedBy="listaAssuntos",	
-        cascade={CascadeType.PERSIST, CascadeType.MERGE}, fetch= FetchType.LAZY) 							
+        cascade={CascadeType.PERSIST, CascadeType.MERGE}, fetch= FetchType.EAGER) 							
         private List<Noticia> listaNoticia = new ArrayList<>();
 
     public Assunto(){}
+    
     public Assunto(String nome) {
         this.nome = nome;
     }

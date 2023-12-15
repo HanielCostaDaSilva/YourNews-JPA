@@ -5,6 +5,7 @@ package appswing;
  * Prof. Fausto Maranh�o Ayres
  **********************************/
 
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -17,7 +18,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.SwingConstants;
 
-import service.Fachada;
 
 public class TelaPrincipal {
 	private JFrame frame;
@@ -32,18 +32,18 @@ public class TelaPrincipal {
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					TelaPrincipal window = new TelaPrincipal();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TelaPrincipal window = new TelaPrincipal();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the application.
@@ -115,4 +115,5 @@ public class TelaPrincipal {
 		});
 		menuBar.add(mnConsulta);
 	}
+	
 }

@@ -28,7 +28,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
-
+import javax.swing.table.TableColumn;
 
 import model.Assunto;
 import service.Fachada;
@@ -73,7 +73,7 @@ public class TelaAssunto {
 	 */
 	private void initialize() {
 		frame = new JDialog();
-		frame.setModal(true);
+		//frame.setModal(true);
 
 		frame.setResizable(false);
 		frame.setTitle("Assunto");
@@ -101,13 +101,13 @@ public class TelaAssunto {
 		assuntoTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				label_4.setText("selecionado=" + (String) assuntoTable.getValueAt(assuntoTable.getSelectedRow(), 0));
+				label_4.setText("selecionado=" + (String) assuntoTable.getValueAt(assuntoTable.getSelectedRow(), 1));
 			}
 		});
 		assuntoTable.setGridColor(Color.BLACK);
 		assuntoTable.setRequestFocusEnabled(false);
 		assuntoTable.setFocusable(false);
-		assuntoTable.setBackground(Color.ORANGE);
+		assuntoTable.setBackground(Color.LIGHT_GRAY);
 		assuntoTable.setFillsViewportHeight(true);
 		assuntoTable.setRowSelectionAllowed(true);
 		assuntoTable.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -126,31 +126,24 @@ public class TelaAssunto {
 		label_4.setBounds(21, 190, 431, 14);
 		frame.getContentPane().add(label_4);
 
-		// label_2 = new JLabel("cpf:");
-		// label_2.setHorizontalAlignment(SwingConstants.LEFT);
-		// label_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		// label_2.setBounds(21, 269, 71, 14);
-		// frame.getContentPane().add(label_2);
-
 
 		adicionarAssuntoButton = new JButton("Criar novo assunto");
 		adicionarAssuntoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					// 	label.setText("campo vazio");
-					// 	return;
-					// }
+
 					String nome = nomeField.getText();
 					Fachada.adicionarAssunto(nome);
 					resultado.setText("Assuto criado: " + nome);
 					listagem();
+					
 				} catch (Exception ex) {
 					resultado.setText(ex.getMessage());
 				}
 			}
 		});
 		adicionarAssuntoButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		adicionarAssuntoButton.setBounds(525, 265, 153, 23);
+		adicionarAssuntoButton.setBounds(293, 244, 203, 39);
 		frame.getContentPane().add(adicionarAssuntoButton);
 
 		button = new JButton("Listar");
@@ -160,40 +153,33 @@ public class TelaAssunto {
 				listagem();
 			}
 		});
-		button.setBounds(308, 11, 89, 23);
+		button.setBounds(21, 11, 674, 34);
 		frame.getContentPane().add(button);
 
 		label_3 = new JLabel("nome:");
 		label_3.setHorizontalAlignment(SwingConstants.LEFT);
 		label_3.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		label_3.setBounds(281, 269, 63, 14);
+		label_3.setBounds(37, 256, 63, 14);
 		frame.getContentPane().add(label_3);
 
 		nomeField = new JTextField();
 		nomeField.setFont(new Font("Dialog", Font.PLAIN, 12));
 		nomeField.setColumns(10);
-		nomeField.setBounds(336, 264, 168, 20);
+		nomeField.setBounds(92, 244, 168, 39);
 		frame.getContentPane().add(nomeField);
 
 		button_2 = new JButton("Apagar selecionado");
 		button_2.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if (assuntoTable.getSelectedRow() >= 0) {
-						resultado.setText("nao implementado ");
 						
-						////////////////////////////////////////////
-						////////////////////////////////////////////
-						////////////////////////////////////////////
-						////////////////////////////////////////////
-						// CHECAR SE FUNCIONA MESMO assuntoNome ///
+
 						String assuntoNome = (String) assuntoTable.getValueAt(assuntoTable.getSelectedRow(), 1);
-						
-						////////////////////////////////////////////
-						////////////////////////////////////////////
-						////////////////////////////////////////////
-						////////////////////////////////////////////
-						// CHECAR SE FUNCIONA MESMO assuntoNome ///
+						resultado.setText("removendo Noticia:  "+ assuntoNome);
+
+
 						Fachada.removerAssunto(assuntoNome);
 						resultado.setText("assunto apagado");
 						listagem();
@@ -205,7 +191,7 @@ public class TelaAssunto {
 			}
 		});
 		button_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		button_2.setBounds(281, 213, 171, 23);
+		button_2.setBounds(506, 244, 203, 39);
 		frame.getContentPane().add(button_2);
 	}
 
@@ -219,18 +205,33 @@ public class TelaAssunto {
 			// adicionar colunas no model
 			model.addColumn("ID");
 			model.addColumn("nome");
-
+			model.addColumn("Quantidade Noticias");
+			
 			// adicionar linhas no model
 			for (Assunto ass : lista) {
-				model.addRow(new Object[] { ass.getId(), ass.getNome() });
+				model.addRow(new Object[] { ass.getId(), ass.getNome(), ass.getListaNoticia().size()});
 			}
 
-			// atualizar model no table (visualizacao)
 			assuntoTable.setModel(model);
 
+			TableColumn column;
+
+			for (int i = 0; i < assuntoTable.getColumnCount(); i++) {
+				column = assuntoTable.getColumnModel().getColumn(i);
+				if (i == 0) {
+					column.setPreferredWidth(30); // Tamanho desejado para a coluna ID
+				} else if (i == 1) {
+					column.setPreferredWidth(350);
+				} else {
+					column.setPreferredWidth(150);
+				}
+			}
+
 			label_4.setText("resultados: " + lista.size() + " objetos");
+
 		} catch (Exception erro) {
 			resultado.setText(erro.getMessage());
+			System.err.println(erro.getMessage());
 		}
 	}
 }

@@ -157,7 +157,7 @@ public class TelaAssuntoNoticia {
 					int idNoticia = Integer.parseInt(noticiaSelecionadaInput.getText());
 					int idAssunto = Integer.parseInt(assuntoSelecionadoInput.getText());
 					associarAssunto(idNoticia,idAssunto);
-					resultado.setText("Noticia: "+noticiaSelecionadaText+" foi associada ao assunto "+assuntoSelecionadoText);
+					resultado.setText("Noticia: "+ noticiaSelecionadaText+" foi associada ao assunto "+assuntoSelecionadoText);
 				} catch (Exception ex) {
 					resultado.setText(ex.getMessage());
 				}
