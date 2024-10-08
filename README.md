@@ -2,7 +2,7 @@
 Bem vindo ao YourNews! Seu portal de notícias, sempre Atualizado!
 
 <div align="center">
-    <img height="250px" width="60%" src="./assets/img/principal.png" alt="Imagem principal">
+    <img height="280px" width="60%" src="./assets/img/principal.png" alt="Imagem principal">
     <p>Imagem gerada pelo <a href="https://leonardo.ai/">leonardo.ai</a></p>
 </div>
 
